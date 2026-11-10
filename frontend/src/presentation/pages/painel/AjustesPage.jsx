@@ -15,11 +15,11 @@ const copiarLink = async () => {
   }
 };
 
-// TODO(AJ-01): telas de folgas e plano ainda não existem.
+// TODO(AJ-01): tela de plano ainda não existe.
 const ATENDIMENTO = [
   { id: "servicos", label: "Serviços", valor: "3", to: "/painel/ajustes/servicos" },
   { id: "horarios", label: "Horários", valor: "Seg a Sáb, 9h–19h", to: "/painel/ajustes/horarios" },
-  { id: "folgas", label: "Folgas e bloqueios", valor: "1 ativa" },
+  { id: "folgas", label: "Folgas e bloqueios", valor: "1 ativa", to: "/painel/ajustes/folgas" },
 ];
 
 const PAGAMENTO = [

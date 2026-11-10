@@ -1,5 +1,5 @@
 // AJ-04 — Ajustes › Horários de atendimento (só a tela; dados de exemplo do Figma)
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { HorariosSemana } from "@/presentation/components/horarios/HorariosSemana";
 import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
@@ -26,9 +26,8 @@ export default function HorariosPage() {
 
         <HorariosSemana />
 
-        {/* TODO(AJ-04): abrir folgas e bloqueios (modal P4). */}
-        <button
-          type="button"
+        <Link
+          to="/painel/ajustes/folgas"
           className="flex pressable items-center gap-3 rounded-2xl border border-line bg-surface py-3.5 pr-3.5 pl-4 text-left leading-[normal]"
         >
           <span className="flex min-w-0 flex-1 flex-col gap-0.5">
@@ -40,7 +39,7 @@ export default function HorariosPage() {
             </span>
           </span>
           <img src={setaIcon} alt="" width={16} height={16} className="shrink-0" />
-        </button>
+        </Link>
       </main>
 
       <footer className="sticky bottom-0 bg-paper px-5 pt-3 pb-8.5">

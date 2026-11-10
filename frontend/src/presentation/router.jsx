@@ -23,6 +23,7 @@ import ServicosPage from "@/presentation/pages/painel/ServicosPage";
 import ServicoPage from "@/presentation/pages/painel/ServicoPage";
 import HorariosPage from "@/presentation/pages/painel/HorariosPage";
 import PagamentoPage from "@/presentation/pages/painel/PagamentoPage";
+import FolgasPage from "@/presentation/pages/painel/FolgasPage";
 import PrivacidadePage from "@/presentation/pages/legal/PrivacidadePage";
 import TermosPage from "@/presentation/pages/legal/TermosPage";
 
@@ -51,6 +52,7 @@ function routes() {
     { path: "/painel/ajustes/servicos/:id", element: <ServicoPage /> }, // AJ-03
     { path: "/painel/ajustes/horarios", element: <HorariosPage /> }, // AJ-04
     { path: "/painel/ajustes/pagamento", element: <PagamentoPage /> }, // AJ-05
+    { path: "/painel/ajustes/folgas", element: <FolgasPage /> }, // AJ-06
     { path: "/privacidade", element: <PrivacidadePage /> }, // LGL-03
     { path: "/termos", element: <TermosPage /> }, // LGL-03
     { path: "/componentes", element: <ComponentesPage /> },
