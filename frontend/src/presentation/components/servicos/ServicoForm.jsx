@@ -41,12 +41,23 @@ function Secao({ titulo, descricao, children }) {
   );
 }
 
-export function ServicoForm({ titulo = "Novo serviço", onBack, onSave }) {
-  const [nome, setNome] = useState("");
+/**
+ * inicial: valores que já vêm preenchidos (ex.: ao editar). { nome, preco }.
+ * onExcluir: quando existe, mostra "Excluir serviço" embaixo do botão de salvar.
+ */
+export function ServicoForm({
+  titulo = "Novo serviço",
+  submitLabel = "Salvar serviço",
+  inicial = {},
+  onBack,
+  onSave,
+  onExcluir,
+}) {
+  const [nome, setNome] = useState(inicial.nome ?? "");
   const [descricao, setDescricao] = useState("");
   const [duracao, setDuracao] = useState(20);
   const [duracaoOutro, setDuracaoOutro] = useState("");
-  const [preco, setPreco] = useState("");
+  const [preco, setPreco] = useState(inicial.preco ?? "");
   const [cobrarSinal, setCobrarSinal] = useState(true);
   const [sinal, setSinal] = useState(30);
   const [sinalFixo, setSinalFixo] = useState("");
@@ -197,10 +208,15 @@ export function ServicoForm({ titulo = "Novo serviço", onBack, onSave }) {
         </section>
       </main>
 
-      <footer className="sticky bottom-0 border-t border-line bg-surface px-5 pt-3 pb-8.5">
+      <footer className="sticky bottom-0 flex flex-col items-center gap-1 border-t border-line bg-surface px-5 pt-3 pb-8.5">
         <Button type="submit" className="w-full">
-          Salvar serviço
+          {submitLabel}
         </Button>
+        {onExcluir && (
+          <Button variant="texto" className="text-danger" onClick={onExcluir}>
+            Excluir serviço
+          </Button>
+        )}
       </footer>
     </form>
   );
