@@ -1,6 +1,7 @@
-// BOOK-03 — Seus dados (só a tela; dados de exemplo do Figma)
+// BOOK-03 — Seus dados (só a tela; dados de exemplo do Figma 03 e 12)
+// Com ?estado=erro, mostra o WhatsApp incompleto com a mensagem de erro (Figma 12).
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import { StepProgress } from "@/presentation/components/ui/StepProgress";
@@ -11,8 +12,10 @@ import cadeadoIcon from "@/presentation/assets/icons/cadeado-20.svg";
 export default function SeusDadosPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [nome, setNome] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
+  const [params] = useSearchParams();
+  const comErro = params.get("estado") === "erro";
+  const [nome, setNome] = useState(comErro ? "Lucas Andrade" : "");
+  const [whatsapp, setWhatsapp] = useState(comErro ? "(19) 9 8765-43" : "");
 
   const confirmar = (e) => {
     e.preventDefault();
@@ -59,7 +62,12 @@ export default function SeusDadosPage() {
           placeholder="(19) 9 0000-0000"
           value={whatsapp}
           onChange={(e) => setWhatsapp(e.target.value)}
-          hint="Você recebe a confirmação e o lembrete por aqui."
+          hint={
+            comErro
+              ? "Faltam números. Confira: (DDD) 9 0000-0000"
+              : "Você recebe a confirmação e o lembrete por aqui."
+          }
+          hintTone={comErro ? "erro" : "neutro"}
         />
 
         <section className="flex items-start gap-3 rounded-2xl border border-line bg-surface px-4 py-3.5">
