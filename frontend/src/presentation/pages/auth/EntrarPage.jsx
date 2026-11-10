@@ -13,7 +13,9 @@ export default function EntrarPage() {
   return (
     <main className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <div className="flex flex-1 flex-col gap-7 px-5 pt-7 pb-4">
-        <Logo />
+        <Link to="/" aria-label="MarqueiFlow, página inicial" className="pressable self-start">
+          <Logo as="span" />
+        </Link>
         <AgendaPreview />
         <div className="flex flex-col gap-2">
           <h1 className="text-[28px] leading-[1.12] font-semibold tracking-[-0.84px] text-ink">
