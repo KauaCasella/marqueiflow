@@ -22,7 +22,11 @@ export function AuthLayout({ titulo, texto, children, acao, onEnviar, onGoogle, 
       className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3 leading-[normal]"
     >
       <div className="flex flex-1 flex-col gap-5 px-5 pt-7 pb-4">
-        <Link to="/" aria-label="MarqueiFlow, página inicial" className="pressable self-start">
+        <Link
+          to="/"
+          aria-label="MarqueiFlow, página inicial"
+          className="area-toque pressable self-start"
+        >
           <Logo as="span" />
         </Link>
         <div className="flex flex-col gap-2 pt-3">
@@ -50,7 +54,7 @@ export function AuthLayout({ titulo, texto, children, acao, onEnviar, onGoogle, 
       <footer className="flex flex-col items-center gap-3 px-5 pt-3 pb-8.5">
         <p className="text-[15px] text-ink-2">
           {rodape.pergunta}{" "}
-          <Link to={rodape.to} className="font-semibold text-accent-strong">
+          <Link to={rodape.to} className="area-toque font-semibold text-accent-strong">
             {rodape.acao}
           </Link>
         </p>

@@ -19,7 +19,7 @@ export function RootLayout() {
       {!semLogo && (
         <div className="mx-auto flex w-full max-w-[430px] justify-end bg-paper px-5 pt-3">
           {logoInicio ? (
-            <Link to="/" aria-label="MarqueiFlow, página inicial" className="pressable">
+            <Link to="/" aria-label="MarqueiFlow, página inicial" className="area-toque pressable">
               {logo}
             </Link>
           ) : (
