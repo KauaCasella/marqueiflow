@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
 import { ListRow } from "@/presentation/components/ui/ListRow";
 import { Logo } from "@/presentation/components/ui/Logo";
+import { LinksLegais } from "@/presentation/components/legal/LinksLegais";
 
 // Exemplo até existir back-end.
 const PROFISSIONAL = {
@@ -98,15 +99,7 @@ export default function ProfissionalPage() {
           Agende também com
           <Logo as="span" className="text-[13px] leading-[normal] tracking-[-0.03em]" />· grátis
         </p>
-        <p className="flex items-center gap-2 text-xs text-ink-2">
-          <Link to="/privacidade" className="font-medium underline">
-            Política de privacidade
-          </Link>
-          ·
-          <Link to="/termos" className="font-medium underline">
-            Termos de uso
-          </Link>
-        </p>
+        <LinksLegais />
       </footer>
     </div>
   );

@@ -3,6 +3,7 @@
 import { Link, useSearchParams } from "react-router";
 import { Button } from "@/presentation/components/ui/Button";
 import { Logo } from "@/presentation/components/ui/Logo";
+import { LinksLegais } from "@/presentation/components/legal/LinksLegais";
 import { StatusBadge } from "@/presentation/components/ui/StatusBadge";
 import checkIcon from "@/presentation/assets/icons/check-28.svg";
 import calendarioIcon from "@/presentation/assets/icons/calendario-18.svg";
@@ -109,15 +110,7 @@ export default function AgendamentoProntoPage() {
             <Logo as="span" className="text-[13px] leading-[normal] tracking-[-0.03em]" />
           </Link>
         </p>
-        <p className="flex items-center gap-2 text-xs text-ink-2">
-          <Link to="/privacidade" className="font-medium underline">
-            Política de privacidade
-          </Link>
-          ·
-          <Link to="/termos" className="font-medium underline">
-            Termos de uso
-          </Link>
-        </p>
+        <LinksLegais />
       </footer>
     </div>
   );
