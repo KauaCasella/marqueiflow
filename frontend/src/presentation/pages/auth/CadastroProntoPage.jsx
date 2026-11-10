@@ -75,7 +75,7 @@ export default function CadastroProntoPage() {
           </Button>
         </div>
         <Link
-          to="/painel"
+          to="/painel?estado=vazia"
           className="-my-[13px] flex h-11 pressable items-center px-3 text-[15px] font-semibold text-ink-2"
         >
           Ir para minha agenda
