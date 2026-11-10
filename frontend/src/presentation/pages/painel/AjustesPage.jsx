@@ -15,7 +15,7 @@ const copiarLink = async () => {
   }
 };
 
-// TODO(AJ-01): telas de folgas, Pix, sinal e plano ainda não existem.
+// TODO(AJ-01): telas de folgas e plano ainda não existem.
 const ATENDIMENTO = [
   { id: "servicos", label: "Serviços", valor: "3", to: "/painel/ajustes/servicos" },
   { id: "horarios", label: "Horários", valor: "Seg a Sáb, 9h–19h", to: "/painel/ajustes/horarios" },
@@ -23,8 +23,8 @@ const ATENDIMENTO = [
 ];
 
 const PAGAMENTO = [
-  { id: "pix", label: "Chave Pix", valor: "rafabarber@email.com" },
-  { id: "sinal", label: "Sinal", valor: "30% em serviços longos" },
+  { id: "pix", label: "Chave Pix", valor: "rafabarber@email.com", to: "/painel/ajustes/pagamento" },
+  { id: "sinal", label: "Sinal", valor: "30% em serviços longos", to: "/painel/ajustes/pagamento" },
 ];
 
 const CONTA = [
