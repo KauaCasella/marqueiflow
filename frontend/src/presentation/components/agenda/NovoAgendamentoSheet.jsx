@@ -11,15 +11,15 @@ import setaIcon from "@/presentation/assets/icons/seta-direita-16-clara.svg";
 
 /**
  * Para o profissional marcar quem pediu por mensagem ou ligação.
- * horario: o horário que vem escolhido (ex.: o "Marcar" de um horário livre). Fecha ao marcar.
+ * dia/horario: o dia e o horário que vem escolhido (ex.: o "Marcar" de um horário livre). Fecha ao marcar.
  */
-export function NovoAgendamentoSheet({ open, onClose, horario = "17:30" }) {
+export function NovoAgendamentoSheet({ open, onClose, dia = "Hoje, seg 9/11", horario = "17:30" }) {
   const [cliente, setCliente] = useState("");
 
   // TODO(AG-01): escolher serviço, dia e horário.
   const escolhas = [
     { label: "Serviço", valor: "Corte · 30 min", icone: lapisIcon },
-    { label: "Dia", valor: "Hoje, seg 9/11", icone: calendarioIcon },
+    { label: "Dia", valor: dia, icone: calendarioIcon },
     { label: "Horário", valor: horario, icone: relogioIcon },
   ];
 

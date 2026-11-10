@@ -3,6 +3,7 @@ import {
   AgendaHojePage,
   AjustesPage,
   ClientesPage,
+  DiaPage,
   FolgasPage,
   HorariosPage,
   PagamentoPage,
@@ -16,6 +17,7 @@ import {
 export const painelRoutes = [
   { path: "/painel", element: <AgendaHojePage /> }, // AG-01
   { path: "/painel/semana", element: <SemanaPage /> }, // AG-03
+  { path: "/painel/semana/:dia", element: <DiaPage /> }, // AG-04
   { path: "/painel/clientes", element: <ClientesPage /> }, // CLT-01
   { path: "/painel/resumo", element: <ResumoPage /> }, // RES-01
   { path: "/painel/ajustes", element: <AjustesPage /> }, // AJ-01
