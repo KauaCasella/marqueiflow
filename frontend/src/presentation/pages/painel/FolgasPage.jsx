@@ -30,7 +30,7 @@ export default function FolgasPage() {
   const [bloqueando, setBloqueando] = useState(false);
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <header className="flex h-13 items-center gap-3 px-5">
         <IconButton
           icon={voltarIcon}

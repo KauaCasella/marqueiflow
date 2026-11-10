@@ -11,13 +11,13 @@ export const router = createBrowserRouter([
   {
     element: <RootLayout />,
     children: [
-      { path: "/", element: <HomePage /> },
+      { path: "/", element: <HomePage />, handle: { semLogo: true } },
       ...cadastroRoutes,
       ...painelRoutes,
       ...legalRoutes,
       { path: "/componentes", element: <ComponentesPage /> },
       ...publicoRoutes, // por último: "/:slug" pega qualquer caminho de um nível
-      { path: "*", element: <NotFoundPage /> },
+      { path: "*", element: <NotFoundPage />, handle: { semLogo: true } }, // PUB-04
     ],
   },
 ]);

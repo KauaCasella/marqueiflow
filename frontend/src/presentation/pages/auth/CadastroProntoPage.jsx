@@ -28,7 +28,7 @@ export default function CadastroProntoPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <main className="flex flex-1 flex-col items-center gap-5 px-5 pt-9 pb-4 text-center">
         <div className="flex size-14 items-center justify-center rounded-full bg-success-soft">
           <img src={checkIcon} alt="" width={26} height={26} />

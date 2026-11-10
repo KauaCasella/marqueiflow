@@ -29,7 +29,7 @@ export default function AgendamentoProntoPage() {
   const comSinal = params.get("sinal") !== "nao";
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <main className="flex flex-1 flex-col gap-4 px-5 pt-7 leading-[normal]">
         <header className="flex flex-col items-center gap-2.5 pb-2 text-center">
           <span className="flex size-16 items-center justify-center rounded-full bg-success-soft">

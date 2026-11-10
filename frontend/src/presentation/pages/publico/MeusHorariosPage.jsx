@@ -23,7 +23,7 @@ const ANTERIORES = [
 
 export default function MeusHorariosPage() {
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <main className="flex flex-1 flex-col gap-4.5 px-5 py-4 leading-[normal]">
         <header className="flex flex-col gap-1">
           <h1 className="text-[32px] leading-[1.1] font-semibold tracking-[-0.96px] text-ink">

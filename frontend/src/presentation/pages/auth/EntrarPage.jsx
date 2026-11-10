@@ -11,7 +11,7 @@ export default function EntrarPage() {
   const entrarComGoogle = () => navigate("/cadastro/1");
   const receberLinkPorEmail = () => {};
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <main className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <div className="flex flex-1 flex-col gap-7 px-5 pt-7 pb-4">
         <Logo />
         <AgendaPreview />

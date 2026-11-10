@@ -8,7 +8,7 @@ import { cn } from "@/presentation/utils/cn";
  */
 export function ResultadoAgendamento({ selo, titulo, texto, linhas, aviso, acoes }) {
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <main className="flex flex-1 flex-col gap-4.5 px-5 pt-10 pb-4 leading-[normal]">
         <header className="flex flex-col items-center gap-2.5 pb-2 text-center">
           <span

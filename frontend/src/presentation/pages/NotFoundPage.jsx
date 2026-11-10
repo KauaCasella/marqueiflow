@@ -6,7 +6,7 @@ import buscaIcon from "@/presentation/assets/icons/busca-28.svg";
 
 export default function NotFoundPage() {
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+    <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
       <main className="flex flex-1 flex-col gap-6 px-5 pt-7 pb-4 leading-[normal]">
         <Logo className="text-[22px]" />
 
