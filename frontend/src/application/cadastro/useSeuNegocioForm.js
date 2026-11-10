@@ -2,14 +2,17 @@
 import { useState } from "react";
 import { formatarTelefone, gerarSlug } from "@/domain/formatacao";
 import { slugValido, telefoneCompleto } from "@/domain/validacao";
+import { useCadastro } from "./CadastroContext";
 
 export function useSeuNegocioForm() {
-  const [foto, setFoto] = useState(null);
-  const [nome, setNome] = useState("");
-  const [link, setLink] = useState("");
-  const [linkEditado, setLinkEditado] = useState(false);
-  const [whatsapp, setWhatsapp] = useState("");
-  const [endereco, setEndereco] = useState("");
+  const cadastro = useCadastro();
+  const inicial = cadastro.negocio;
+
+  const [nome, setNome] = useState(inicial.nome);
+  const [link, setLink] = useState(inicial.slug);
+  const [linkEditado, setLinkEditado] = useState(inicial.linkEditado);
+  const [whatsapp, setWhatsapp] = useState(inicial.whatsapp);
+  const [endereco, setEndereco] = useState(inicial.endereco);
 
   // O link acompanha o nome até a pessoa mexer nele.
   const slug = linkEditado ? link : gerarSlug(nome);
@@ -20,10 +23,10 @@ export function useSeuNegocioForm() {
   const podeContinuar = nome.trim().length > 0 && linkValido && telefoneCompleto(whatsapp);
 
   return {
-    valores: { foto, nome, slug, whatsapp, endereco },
+    valores: { foto: cadastro.foto, nome, slug, whatsapp, endereco },
     linkStatus,
     podeContinuar,
-    setFoto,
+    setFoto: cadastro.setFoto,
     setNome,
     setLink: (valor) => {
       setLinkEditado(true);
@@ -31,5 +34,13 @@ export function useSeuNegocioForm() {
     },
     setWhatsapp: (valor) => setWhatsapp(formatarTelefone(valor)),
     setEndereco,
+    salvar: () =>
+      cadastro.salvarNegocio({
+        nome: nome.trim(),
+        slug,
+        linkEditado,
+        whatsapp,
+        endereco: endereco.trim(),
+      }),
   };
 }

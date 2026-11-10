@@ -1,29 +1,40 @@
 import { useId } from "react";
 import { cn } from "@/presentation/utils/cn";
+
 const hintTones = {
   neutro: "font-normal text-ink-2",
   sucesso: "font-medium text-success",
   erro: "font-medium text-danger",
 };
-/** Campo de texto (Figma · Componentes base). Em foco a borda fica preta. */
+
+/**
+ * Campo de texto (Figma · Componentes base). Em foco a borda fica preta.
+ * prefix: texto fixo antes do valor (ex.: "agendeaqui.com.br/" ou "R$").
+ * suffix: ícone no fim da caixa. hintTone: "neutro" | "sucesso" | "erro".
+ */
 export function TextField({
   label,
   hint,
   hintTone = "neutro",
   prefix,
+  prefixClassName,
   suffix,
   className,
+  inputClassName,
   id,
   ...inputProps
 }) {
   const autoId = useId();
   const inputId = id ?? autoId;
   const hintId = hint ? `${inputId}-dica` : undefined;
+
   return (
     <div className={cn("flex w-full flex-col gap-2", className)}>
-      <label htmlFor={inputId} className="text-sm font-semibold text-ink">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={inputId} className="text-sm font-semibold text-ink">
+          {label}
+        </label>
+      )}
       <div
         className={cn(
           "flex h-13 w-full items-center rounded-[14px] border border-line bg-surface px-4",
@@ -31,13 +42,15 @@ export function TextField({
           suffix && "pr-3.5",
         )}
       >
-        {prefix && <span className="shrink-0 text-base text-ink-2">{prefix}</span>}
+        {prefix && (
+          <span className={cn("shrink-0 text-base text-ink-2", prefixClassName)}>{prefix}</span>
+        )}
         <input
           id={inputId}
           aria-describedby={hintId}
           className={cn(
             "h-full min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink-3",
-            prefix && "font-semibold",
+            inputClassName,
           )}
           {...inputProps}
         />

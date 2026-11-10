@@ -1,20 +1,31 @@
 import { Button } from "@/presentation/components/ui/Button";
+import { IconButton } from "@/presentation/components/ui/IconButton";
 import { StepProgress } from "@/presentation/components/ui/StepProgress";
+import { cn } from "@/presentation/utils/cn";
+import voltarIcon from "@/presentation/assets/icons/voltar-20.svg";
+
 export const TOTAL_PASSOS = 4;
-/** Moldura dos passos do cadastro (ONB-01..05): topo, progresso, conteúdo e botão fixo embaixo. */
+
+/**
+ * Moldura dos passos do cadastro (ONB-01..05): topo, progresso, título,
+ * conteúdo e botão fixo embaixo. onBack mostra o botão de voltar (do passo 2 em diante).
+ */
 export function CadastroLayout({
   passo,
   title,
+  description,
   children,
   submitLabel = "Continuar",
   canSubmit = true,
   onSubmit,
-  back,
+  onBack,
+  contentClassName,
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (canSubmit) onSubmit();
   };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -22,17 +33,22 @@ export function CadastroLayout({
       className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3"
     >
       <header className="flex h-13 items-center justify-between px-5">
-        <div className="flex min-w-25 items-center">{back}</div>
+        <div className="flex min-w-25 items-center">
+          {onBack && <IconButton icon={voltarIcon} label="Voltar" onClick={onBack} />}
+        </div>
         <p className="text-[13px] font-medium text-ink-2">
           Passo {passo} de {TOTAL_PASSOS}
         </p>
       </header>
       <StepProgress current={passo} total={TOTAL_PASSOS} className="px-5 py-1" />
 
-      <main className="flex flex-1 flex-col gap-4.5 px-5 py-4">
-        <h1 className="text-[28px] leading-[1.12] font-semibold tracking-[-0.84px] text-ink">
-          {title}
-        </h1>
+      <main className={cn("flex flex-1 flex-col gap-4.5 px-5 py-4", contentClassName)}>
+        <div className="flex flex-col gap-2">
+          <h1 className="text-[28px] leading-[1.12] font-semibold tracking-[-0.84px] text-ink">
+            {title}
+          </h1>
+          {description && <p className="text-[15px] leading-[1.45] text-ink-2">{description}</p>}
+        </div>
         {children}
       </main>
 

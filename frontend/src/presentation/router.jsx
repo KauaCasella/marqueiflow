@@ -1,4 +1,7 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Outlet } from "react-router";
+import { CadastroProvider } from "@/application/cadastro/CadastroProvider";
+import { RootLayout } from "@/presentation/RootLayout";
+import CadastroNovoServicoPage from "@/presentation/pages/auth/CadastroNovoServicoPage";
 import HomePage from "@/presentation/pages/HomePage";
 import NotFoundPage from "@/presentation/pages/NotFoundPage";
 import ComponentesPage from "@/presentation/pages/ComponentesPage";
@@ -22,28 +25,45 @@ import ServicoPage from "@/presentation/pages/painel/ServicoPage";
 import HorariosPage from "@/presentation/pages/painel/HorariosPage";
 import PrivacidadePage from "@/presentation/pages/legal/PrivacidadePage";
 import TermosPage from "@/presentation/pages/legal/TermosPage";
-export const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
-  { path: "/:slug", element: <ProfissionalPage /> }, // PUB-01
-  { path: "/:slug/agendar", element: <EscolherHorarioPage /> }, // BOOK-01
-  { path: "/:slug/agendar/dados", element: <SeusDadosPage /> }, // BOOK-03
-  { path: "/:slug/agendar/pronto", element: <AgendamentoProntoPage /> }, // BOOK-05/06
-  { path: "/a/:token", element: <SeuAgendamentoPage /> }, // CLI-02
-  { path: "/a/:token/remarcar", element: <RemarcarPage /> }, // CLI-03
-  { path: "/meus-horarios", element: <MeusHorariosPage /> }, // CLI-01
-  { path: "/entrar", element: <EntrarPage /> }, // AUTH-03
-  { path: "/cadastro/:passo", element: <CadastroPassoPage /> }, // ONB-01..05
-  { path: "/cadastro/pronto", element: <CadastroProntoPage /> }, // ONB-06
-  { path: "/painel", element: <AgendaHojePage /> }, // AG-01
-  { path: "/painel/semana", element: <SemanaPage /> }, // AG-03
-  { path: "/painel/clientes", element: <ClientesPage /> }, // CLT-01
-  { path: "/painel/resumo", element: <ResumoPage /> }, // RES-01
-  { path: "/painel/ajustes", element: <AjustesPage /> }, // AJ-01
-  { path: "/painel/ajustes/servicos", element: <ServicosPage /> }, // AJ-02
-  { path: "/painel/ajustes/servicos/:id", element: <ServicoPage /> }, // AJ-03
-  { path: "/painel/ajustes/horarios", element: <HorariosPage /> }, // AJ-04
-  { path: "/privacidade", element: <PrivacidadePage /> }, // LGL-03
-  { path: "/termos", element: <TermosPage /> }, // LGL-03
-  { path: "/componentes", element: <ComponentesPage /> },
-  { path: "*", element: <NotFoundPage /> },
-]);
+
+export const router = createBrowserRouter([{ element: <RootLayout />, children: routes() }]);
+
+function routes() {
+  return [
+    { path: "/", element: <HomePage /> },
+    { path: "/:slug", element: <ProfissionalPage /> }, // PUB-01
+    { path: "/:slug/agendar", element: <EscolherHorarioPage /> }, // BOOK-01
+    { path: "/:slug/agendar/dados", element: <SeusDadosPage /> }, // BOOK-03
+    { path: "/:slug/agendar/pronto", element: <AgendamentoProntoPage /> }, // BOOK-05/06
+    { path: "/a/:token", element: <SeuAgendamentoPage /> }, // CLI-02
+    { path: "/a/:token/remarcar", element: <RemarcarPage /> }, // CLI-03
+    { path: "/meus-horarios", element: <MeusHorariosPage /> }, // CLI-01
+    { path: "/entrar", element: <EntrarPage /> }, // AUTH-03
+    {
+      // Todos os passos do cadastro dividem os mesmos dados (CadastroProvider).
+      path: "/cadastro",
+      element: (
+        <CadastroProvider>
+          <Outlet />
+        </CadastroProvider>
+      ),
+      children: [
+        { path: ":passo", element: <CadastroPassoPage /> }, // ONB-01..05
+        { path: "servicos/novo", element: <CadastroNovoServicoPage /> }, // ONB-02 (form de AJ-03)
+        { path: "pronto", element: <CadastroProntoPage /> }, // ONB-06
+      ],
+    },
+    { path: "/painel", element: <AgendaHojePage /> }, // AG-01
+    { path: "/painel/semana", element: <SemanaPage /> }, // AG-03
+    { path: "/painel/clientes", element: <ClientesPage /> }, // CLT-01
+    { path: "/painel/resumo", element: <ResumoPage /> }, // RES-01
+    { path: "/painel/ajustes", element: <AjustesPage /> }, // AJ-01
+    { path: "/painel/ajustes/servicos", element: <ServicosPage /> }, // AJ-02
+    { path: "/painel/ajustes/servicos/:id", element: <ServicoPage /> }, // AJ-03
+    { path: "/painel/ajustes/horarios", element: <HorariosPage /> }, // AJ-04
+    { path: "/privacidade", element: <PrivacidadePage /> }, // LGL-03
+    { path: "/termos", element: <TermosPage /> }, // LGL-03
+    { path: "/componentes", element: <ComponentesPage /> },
+    { path: "*", element: <NotFoundPage /> },
+  ];
+}

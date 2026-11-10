@@ -24,7 +24,7 @@ export function SeuNegocioStep() {
       title="Como seus clientes te encontram?"
       canSubmit={form.podeContinuar}
       onSubmit={() => {
-        // TODO(ONB-01): salvar via infrastructure quando houver back-end.
+        form.salvar();
         navigate("/cadastro/2");
       }}
     >
@@ -48,6 +48,7 @@ export function SeuNegocioStep() {
         autoCapitalize="none"
         autoCorrect="off"
         spellCheck={false}
+        inputClassName="font-semibold"
         value={slug}
         onChange={(e) => form.setLink(e.target.value)}
         suffix={
