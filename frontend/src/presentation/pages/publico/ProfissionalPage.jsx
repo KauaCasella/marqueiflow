@@ -1,5 +1,8 @@
-// PUB-01 — Página do profissional (só a tela; dados de exemplo do Figma)
-import { Link, useParams } from "react-router";
+// PUB-01 — Página do profissional (só a tela; dados de exemplo do Figma 01 e 13)
+// Com ?estado=pausada, mostra a agenda pausada (férias) e os serviços sem dar para agendar.
+import { Link, useParams, useSearchParams } from "react-router";
+import { cn } from "@/presentation/utils/cn";
+import pausaIcon from "@/presentation/assets/icons/pausa-16.svg";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
 import { ListRow } from "@/presentation/components/ui/ListRow";
 import { Logo } from "@/presentation/components/ui/Logo";
@@ -26,6 +29,8 @@ const acao = "-my-3 flex h-11 pressable items-center text-sm font-semibold text-
 
 export default function ProfissionalPage() {
   const { slug } = useParams();
+  const [params] = useSearchParams();
+  const pausada = params.get("estado") === "pausada";
   const agendar = `/${slug}/agendar`;
 
   return (
@@ -57,20 +62,37 @@ export default function ProfissionalPage() {
           </div>
         </section>
 
-        <section className="flex items-center justify-between rounded-2xl bg-ink py-3.5 pr-3 pl-4.5">
-          <div className="flex flex-col gap-1">
-            <p className="text-[13px] font-medium text-ink-3">Próximo horário livre</p>
-            <p className="text-xl font-semibold tracking-[-0.4px] text-surface">
-              {PROFISSIONAL.proximoLivre}
-            </p>
-          </div>
-          <Link
-            to={agendar}
-            className="flex h-11 pressable items-center rounded-xl bg-accent px-4 text-[15px] font-semibold tracking-[-0.15px] text-ink"
-          >
-            Agendar
-          </Link>
-        </section>
+        {pausada ? (
+          <section className="flex items-start gap-3 rounded-2xl bg-accent-soft px-4 py-3.5">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-surface">
+              <img src={pausaIcon} alt="" width={16} height={16} />
+            </span>
+            <div className="flex min-w-0 flex-1 flex-col gap-[3px]">
+              <h2 className="text-[15px] font-semibold tracking-[-0.15px] text-ink">
+                Agenda pausada até 15/11
+              </h2>
+              <p className="text-[13px] leading-[1.45] text-ink-2">
+                O Rafa está de férias. Novos horários abrem na volta — dá para falar com ele no
+                WhatsApp.
+              </p>
+            </div>
+          </section>
+        ) : (
+          <section className="flex items-center justify-between rounded-2xl bg-ink py-3.5 pr-3 pl-4.5">
+            <div className="flex flex-col gap-1">
+              <p className="text-[13px] font-medium text-ink-3">Próximo horário livre</p>
+              <p className="text-xl font-semibold tracking-[-0.4px] text-surface">
+                {PROFISSIONAL.proximoLivre}
+              </p>
+            </div>
+            <Link
+              to={agendar}
+              className="flex h-11 pressable items-center rounded-xl bg-accent px-4 text-[15px] font-semibold tracking-[-0.15px] text-ink"
+            >
+              Agendar
+            </Link>
+          </section>
+        )}
 
         {/* TODO(PUB-01): fotos do portfólio. */}
         <section aria-label="Fotos" className="flex gap-2">
@@ -85,12 +107,16 @@ export default function ProfissionalPage() {
         </section>
 
         <h2 className="text-[17px] font-semibold tracking-[-0.17px] text-ink">Serviços</h2>
-        <ListGroup>
-          {SERVICOS.map((s) => (
-            <Link key={s.id} to={agendar} className="pressable active:scale-100 active:bg-paper">
-              <ListRow title={s.nome} description={s.detalhe} trailing={s.preco} />
-            </Link>
-          ))}
+        <ListGroup className={cn(pausada && "opacity-55")}>
+          {SERVICOS.map((s) =>
+            pausada ? (
+              <ListRow key={s.id} title={s.nome} description={s.detalhe} trailing={s.preco} />
+            ) : (
+              <Link key={s.id} to={agendar} className="pressable active:scale-100 active:bg-paper">
+                <ListRow title={s.nome} description={s.detalhe} trailing={s.preco} />
+              </Link>
+            ),
+          )}
         </ListGroup>
       </main>
 
