@@ -4,9 +4,11 @@ const variants = {
   secundario: "border border-line bg-surface text-ink",
   texto: "text-ink",
   perigo: "bg-danger text-surface",
+  destaque: "bg-accent text-ink",
 };
 /**
  * Botão base. Primário: uma ação por tela. Perigo: ação que desfaz algo (ex.: cancelar).
+ * Destaque: laranja, só sobre fundo escuro (ex.: cartão "Grátis." da landing).
  * as: troca o elemento (ex.: as={Link} to="/entrar" para um link com cara de botão).
  */
 export function Button({ variant = "primario", className, as: Tag = "button", type, ...props }) {
