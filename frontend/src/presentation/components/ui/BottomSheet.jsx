@@ -6,8 +6,17 @@ import fecharIcon from "@/presentation/assets/icons/fechar-16.svg";
 /**
  * Folha que sobe de baixo (Figma · Modais): fundo escurecido, alça, título, texto e botão de fechar.
  * Fecha ao tocar no fundo, no X ou com Esc. className: ajustes da folha (ex.: outro espaçamento).
+ * semFechar: esconde o X (ex.: C3, em que a pessoa precisa escolher uma das opções).
  */
-export function BottomSheet({ open, onClose, title, description, className, children }) {
+export function BottomSheet({
+  open,
+  onClose,
+  title,
+  description,
+  className,
+  semFechar = false,
+  children,
+}) {
   const titleId = useId();
 
   useEffect(() => {
@@ -49,13 +58,15 @@ export function BottomSheet({ open, onClose, title, description, className, chil
             </h2>
             {description && <p className="text-[15px] leading-[1.45] text-ink-2">{description}</p>}
           </div>
-          <IconButton
-            icon={fecharIcon}
-            iconSize={16}
-            label="Fechar"
-            onClick={onClose}
-            className="size-9 border-0 bg-paper before:-inset-1"
-          />
+          {!semFechar && (
+            <IconButton
+              icon={fecharIcon}
+              iconSize={16}
+              label="Fechar"
+              onClick={onClose}
+              className="size-9 border-0 bg-paper before:-inset-1"
+            />
+          )}
         </div>
         {children}
       </div>

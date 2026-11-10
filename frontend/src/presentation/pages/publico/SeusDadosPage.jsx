@@ -1,7 +1,9 @@
 // BOOK-03 — Seus dados (só a tela; dados de exemplo do Figma 03 e 12)
 // Com ?estado=erro, mostra o WhatsApp incompleto com a mensagem de erro (Figma 12).
+// Com ?estado=reservado, confirmar abre o aviso C3 (alguém pegou o horário antes).
 import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router";
+import { HorarioReservadoSheet } from "@/presentation/components/agendamento/HorarioReservadoSheet";
 import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import { StepProgress } from "@/presentation/components/ui/StepProgress";
@@ -16,10 +18,13 @@ export default function SeusDadosPage() {
   const comErro = params.get("estado") === "erro";
   const [nome, setNome] = useState(comErro ? "Lucas Andrade" : "");
   const [whatsapp, setWhatsapp] = useState(comErro ? "(19) 9 8765-43" : "");
+  const horarioTomado = params.get("estado") === "reservado";
+  const [avisoReservado, setAvisoReservado] = useState(false);
 
   const confirmar = (e) => {
     e.preventDefault();
-    navigate(`/${slug}/agendar/pronto`);
+    if (horarioTomado) setAvisoReservado(true);
+    else navigate(`/${slug}/agendar/pronto`);
   };
 
   return (
@@ -98,6 +103,13 @@ export default function SeusDadosPage() {
           .
         </p>
       </footer>
+
+      <HorarioReservadoSheet
+        open={avisoReservado}
+        onClose={() => setAvisoReservado(false)}
+        onFicar={() => navigate(`/${slug}/agendar/pronto`)}
+        onOutrosDias={() => navigate(`/${slug}/agendar`)}
+      />
     </form>
   );
 }
