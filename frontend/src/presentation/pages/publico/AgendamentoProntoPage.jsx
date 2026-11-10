@@ -1,7 +1,9 @@
 // BOOK-05/06 — Confirmação do agendamento (só a tela; dados de exemplo do Figma 04 e 05)
 // /:slug/agendar/pronto mostra "aguardando sinal" (04); com ?sinal=nao, "confirmado" (05).
+import { useCallback, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { Button } from "@/presentation/components/ui/Button";
+import { Toast } from "@/presentation/components/ui/Toast";
 import { Logo } from "@/presentation/components/ui/Logo";
 import { LinksLegais } from "@/presentation/components/legal/LinksLegais";
 import { StatusBadge } from "@/presentation/components/ui/StatusBadge";
@@ -16,17 +18,21 @@ const RESUMO = [
   { label: "Onde", valor: "Rafa Barber · Centro" },
 ];
 
-const copiarChave = async () => {
-  try {
-    await navigator.clipboard.writeText(CHAVE_PIX);
-  } catch {
-    // Sem permissão de área de transferência: nada a fazer nesta fase.
-  }
-};
-
 export default function AgendamentoProntoPage() {
   const [params] = useSearchParams();
   const comSinal = params.get("sinal") !== "nao";
+  const [copiado, setCopiado] = useState(false);
+  const fecharAviso = useCallback(() => setCopiado(false), []);
+
+  // Copia a chave e mostra o aviso C4 "Chave Pix copiada".
+  const copiarChave = async () => {
+    try {
+      await navigator.clipboard.writeText(CHAVE_PIX);
+    } catch {
+      // Sem permissão de área de transferência: o aviso aparece mesmo assim nesta fase.
+    }
+    setCopiado(true);
+  };
 
   return (
     <div className="mx-auto flex w-full max-w-[430px] flex-1 flex-col bg-paper pt-3">
@@ -112,6 +118,10 @@ export default function AgendamentoProntoPage() {
         </p>
         <LinksLegais />
       </footer>
+
+      <Toast aberto={copiado} onFechar={fecharAviso}>
+        Chave Pix copiada
+      </Toast>
     </div>
   );
 }
