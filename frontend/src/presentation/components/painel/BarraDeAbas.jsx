@@ -5,10 +5,11 @@ import agendaAtiva from "@/presentation/assets/icons/aba-agenda-ativa.svg";
 import clientes from "@/presentation/assets/icons/aba-clientes.svg";
 import clientesAtiva from "@/presentation/assets/icons/aba-clientes-ativa.svg";
 import resumo from "@/presentation/assets/icons/aba-resumo.svg";
+import resumoAtiva from "@/presentation/assets/icons/aba-resumo-ativa.svg";
 import ajustes from "@/presentation/assets/icons/aba-ajustes.svg";
 
 // Ícones do Figma (Barra de abas) no estado inativo e ativo.
-// TODO(painel): baixar a variante ativa de Resumo e Ajustes quando essas telas forem feitas.
+// TODO(painel): baixar a variante ativa de Ajustes quando essa tela for feita.
 const ABAS = [
   { id: "agenda", label: "Agenda", to: "/painel", icone: agenda, iconeAtivo: agendaAtiva },
   {
@@ -18,7 +19,7 @@ const ABAS = [
     icone: clientes,
     iconeAtivo: clientesAtiva,
   },
-  { id: "resumo", label: "Resumo", to: "/painel/resumo", icone: resumo, iconeAtivo: resumo },
+  { id: "resumo", label: "Resumo", to: "/painel/resumo", icone: resumo, iconeAtivo: resumoAtiva },
   { id: "ajustes", label: "Ajustes", to: "/painel/ajustes", icone: ajustes, iconeAtivo: ajustes },
 ];
 
