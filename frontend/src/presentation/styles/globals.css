@@ -1,0 +1,53 @@
+@import "@fontsource-variable/geist";
+@import "tailwindcss";
+
+/*
+ * Tokens do AgendeAqui — tirados do Figma (Identidade Visual · Paleta / Tipografia).
+ * Nas telas, use só as classes geradas (bg-paper, text-ink-2, bg-accent...), nunca hex solto.
+ * Laranja (accent) só no "aqui"; texto laranja = accent-strong.
+ */
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #0e0e0c;
+  --color-ink-2: #5e5c55;
+  --color-ink-3: #9a978e;
+  --color-paper: #f7f6f2;
+  --color-surface: #ffffff;
+  --color-line: #e4e2dc;
+
+  --color-accent: #ff5b1f;
+  --color-accent-soft: #ffede4;
+  --color-accent-strong: #c2410c;
+
+  --color-success: #17845a;
+  --color-success-soft: #e3f3eb;
+  --color-danger: #c8331f;
+}
+
+/* Tocáveis: pressionar = escala 0.97 (Figma · Componentes base). */
+@utility pressable {
+  transition:
+    transform 120ms ease-out,
+    opacity 120ms ease-out;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
