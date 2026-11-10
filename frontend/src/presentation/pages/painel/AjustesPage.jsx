@@ -15,7 +15,6 @@ const copiarLink = async () => {
   }
 };
 
-// TODO(AJ-01): tela de plano ainda não existe.
 const ATENDIMENTO = [
   { id: "servicos", label: "Serviços", valor: "3", to: "/painel/ajustes/servicos" },
   { id: "horarios", label: "Horários", valor: "Seg a Sáb, 9h–19h", to: "/painel/ajustes/horarios" },
@@ -28,7 +27,7 @@ const PAGAMENTO = [
 ];
 
 const CONTA = [
-  { id: "plano", label: "Plano", valor: "Grátis" },
+  { id: "plano", label: "Plano", valor: "Grátis", to: "/painel/ajustes/plano" },
   { id: "privacidade", label: "Política de privacidade", to: "/privacidade" },
   { id: "termos", label: "Termos de uso", to: "/termos" },
   { id: "sair", label: "Sair", to: "/entrar", perigo: true },
