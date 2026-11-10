@@ -1,8 +1,9 @@
 // LP-01 — Landing page da rota principal (Figma · Landing page, celular e computador).
-// Feita parte por parte: topo, chamada principal e como funciona.
+// Feita parte por parte: topo, chamada principal, como funciona e vantagens.
 import { LandingComoFunciona } from "@/presentation/components/landing/LandingComoFunciona";
 import { LandingHero } from "@/presentation/components/landing/LandingHero";
 import { LandingTopo } from "@/presentation/components/landing/LandingTopo";
+import { LandingVantagens } from "@/presentation/components/landing/LandingVantagens";
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <main>
         <LandingHero />
         <LandingComoFunciona />
+        <LandingVantagens />
       </main>
     </div>
   );
