@@ -127,8 +127,12 @@ export default function SeuAgendamentoPage() {
       </main>
 
       <footer className="flex flex-col px-5 pt-3 pb-8.5">
-        {/* TODO(CLI-02): abrir o modal C1 Cancelar horário. */}
-        <Button variant="texto" className="w-full text-danger">
+        {/* TODO(CLI-02): confirmar no modal C1 antes de cancelar. */}
+        <Button
+          variant="texto"
+          className="w-full text-danger"
+          onClick={() => navigate(`/a/${token}/cancelado`)}
+        >
           Cancelar agendamento
         </Button>
       </footer>

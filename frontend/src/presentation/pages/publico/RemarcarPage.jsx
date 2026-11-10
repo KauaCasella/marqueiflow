@@ -94,8 +94,7 @@ export default function RemarcarPage() {
         <p className="text-center text-[13px] leading-[1.4] text-ink-2">
           O Rafa recebe um aviso. O sinal pago continua valendo.
         </p>
-        {/* TODO(CLI-03): ir para a tela 09 Remarcado. */}
-        <Button className="w-full" onClick={voltar}>
+        <Button className="w-full" onClick={() => navigate(`/a/${token}/remarcado`)}>
           Trocar para {diaEscolhido.curto}, {hora}
         </Button>
       </footer>
