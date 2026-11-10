@@ -1,7 +1,9 @@
 // CLI-02 — Seu agendamento (só a tela; dados de exemplo do Figma)
+// Com ?estado=prazo (faltam menos de 2h), Remarcar e Cancelar abrem o aviso C2 em vez de seguir.
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { CancelarHorarioSheet } from "@/presentation/components/agendamento/CancelarHorarioSheet";
+import { PrazoEncerradoSheet } from "@/presentation/components/agendamento/PrazoEncerradoSheet";
 import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
@@ -21,7 +23,10 @@ const linha =
 export default function SeuAgendamentoPage() {
   const { token } = useParams();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const prazoEncerrado = params.get("estado") === "prazo";
   const [cancelando, setCancelando] = useState(false);
+  const [avisoPrazo, setAvisoPrazo] = useState(false);
 
   // Exemplo até existir back-end. TODO(CLI-02): telas de trocar serviço e meus dados.
   const ALTERACOES = [
@@ -30,7 +35,8 @@ export default function SeuAgendamentoPage() {
       icone: calendarioIcon,
       titulo: "Remarcar",
       detalhe: "Outro dia ou horário",
-      to: `/a/${token}/remarcar`,
+      to: prazoEncerrado ? undefined : `/a/${token}/remarcar`,
+      onClick: prazoEncerrado ? () => setAvisoPrazo(true) : undefined,
     },
     { id: "servico", icone: trocarIcon, titulo: "Trocar serviço", detalhe: "Corte + barba" },
     {
@@ -117,7 +123,7 @@ export default function SeuAgendamentoPage() {
                 {conteudo}
               </Link>
             ) : (
-              <button key={a.id} type="button" className={linha}>
+              <button key={a.id} type="button" className={linha} onClick={a.onClick}>
                 {conteudo}
               </button>
             );
@@ -130,11 +136,16 @@ export default function SeuAgendamentoPage() {
       </main>
 
       <footer className="flex flex-col px-5 pt-3 pb-8.5">
-        <Button variant="texto" className="w-full text-danger" onClick={() => setCancelando(true)}>
+        <Button
+          variant="texto"
+          className="w-full text-danger"
+          onClick={() => (prazoEncerrado ? setAvisoPrazo(true) : setCancelando(true))}
+        >
           Cancelar agendamento
         </Button>
       </footer>
 
+      <PrazoEncerradoSheet open={avisoPrazo} onClose={() => setAvisoPrazo(false)} />
       <CancelarHorarioSheet
         open={cancelando}
         onClose={() => setCancelando(false)}
