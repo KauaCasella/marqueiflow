@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 /*
- * Tokens do AgendeAqui — tirados do Figma (Identidade Visual · Paleta / Tipografia).
+ * Tokens do MarqueiFlow — tirados do Figma (Identidade Visual · Paleta / Tipografia).
  * Nas telas, use só as classes geradas (bg-paper, text-ink-2, bg-accent...), nunca hex solto.
  * Laranja (accent) só no "aqui"; texto laranja = accent-strong.
  */

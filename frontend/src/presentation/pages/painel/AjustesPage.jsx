@@ -9,7 +9,7 @@ const SLUG = "rafabarber";
 
 const copiarLink = async () => {
   try {
-    await navigator.clipboard.writeText(`https://agendeaqui.com.br/${SLUG}`);
+    await navigator.clipboard.writeText(`https://marqueiflow.com.br/${SLUG}`);
   } catch {
     // Sem permissão de área de transferência: nada a fazer nesta fase.
   }
@@ -49,7 +49,7 @@ export default function AjustesPage() {
             Rafa Barber
           </p>
           <p className="truncate text-[13px]">
-            <span className="text-ink-2">agendeaqui.com.br/</span>
+            <span className="text-ink-2">marqueiflow.com.br/</span>
             <span className="font-semibold text-ink">{SLUG}</span>
           </p>
         </div>

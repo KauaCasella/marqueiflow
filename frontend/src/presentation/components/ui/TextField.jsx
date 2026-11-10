@@ -9,7 +9,7 @@ const hintTones = {
 
 /**
  * Campo de texto (Figma · Componentes base). Em foco a borda fica preta.
- * prefix: texto fixo antes do valor (ex.: "agendeaqui.com.br/" ou "R$").
+ * prefix: texto fixo antes do valor (ex.: "marqueiflow.com.br/" ou "R$").
  * suffix: ícone no fim da caixa. hintTone: "neutro" | "sucesso" | "erro".
  */
 export function TextField({

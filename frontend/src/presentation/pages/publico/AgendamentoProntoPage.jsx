@@ -2,6 +2,7 @@
 // /:slug/agendar/pronto mostra "aguardando sinal" (04); com ?sinal=nao, "confirmado" (05).
 import { Link, useSearchParams } from "react-router";
 import { Button } from "@/presentation/components/ui/Button";
+import { Logo } from "@/presentation/components/ui/Logo";
 import { StatusBadge } from "@/presentation/components/ui/StatusBadge";
 import checkIcon from "@/presentation/assets/icons/check-28.svg";
 import calendarioIcon from "@/presentation/assets/icons/calendario-18.svg";
@@ -104,9 +105,8 @@ export default function AgendamentoProntoPage() {
       <footer className="flex flex-col items-center gap-2.5 px-5 pt-12 pb-8.5 leading-[normal]">
         <p className="flex items-center gap-1.5 text-[13px] text-ink-2">
           Você também atende? Crie grátis no
-          <Link to="/entrar" className="font-bold tracking-[-0.39px] text-ink">
-            marquei<span className="tracking-[-1.28px]">f</span>low
-            <span className="text-accent">.</span>
+          <Link to="/entrar">
+            <Logo as="span" className="text-[13px] leading-[normal] tracking-[-0.03em]" />
           </Link>
         </p>
         <p className="flex items-center gap-2 text-xs text-ink-2">

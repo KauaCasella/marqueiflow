@@ -2,6 +2,7 @@
 import { Link, useParams } from "react-router";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
 import { ListRow } from "@/presentation/components/ui/ListRow";
+import { Logo } from "@/presentation/components/ui/Logo";
 
 // Exemplo até existir back-end.
 const PROFISSIONAL = {
@@ -95,10 +96,7 @@ export default function ProfissionalPage() {
       <footer className="flex flex-col items-center gap-2.5 px-5 pt-12 pb-8.5 leading-[normal]">
         <p className="flex items-center gap-1.5 text-[13px] text-ink-2">
           Agende também com
-          <span className="font-bold tracking-[-0.39px] text-ink">
-            agendeaqui<span className="text-accent">.</span>
-          </span>
-          · grátis
+          <Logo as="span" className="text-[13px] leading-[normal] tracking-[-0.03em]" />· grátis
         </p>
         <p className="flex items-center gap-2 text-xs text-ink-2">
           <Link to="/privacidade" className="font-medium underline">
