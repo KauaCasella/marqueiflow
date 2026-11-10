@@ -1,9 +1,18 @@
 import { cn } from "@/presentation/utils/cn";
-import ligado from "@/presentation/assets/icons/interruptor-ligado.svg";
-import desligado from "@/presentation/assets/icons/interruptor-desligado.svg";
+import ligadoMd from "@/presentation/assets/icons/interruptor-ligado.svg";
+import desligadoMd from "@/presentation/assets/icons/interruptor-desligado.svg";
+import ligadoSm from "@/presentation/assets/icons/interruptor-p-ligado.svg";
+import desligadoSm from "@/presentation/assets/icons/interruptor-p-desligado.svg";
 
-/** Interruptor liga/desliga (48 × 28). Área de toque de 44 px de altura. */
-export function Switch({ checked, onChange, label, className }) {
+const sizes = {
+  md: { w: 48, h: 28, on: ligadoMd, off: desligadoMd, box: "h-7 w-12" },
+  sm: { w: 44, h: 26, on: ligadoSm, off: desligadoSm, box: "h-6.5 w-11" },
+};
+
+/** Interruptor liga/desliga. md = 48 × 28, sm = 44 × 26. Área de toque de 44 px de altura. */
+export function Switch({ checked, onChange, label, size = "md", className }) {
+  const s = sizes[size];
+
   return (
     <button
       type="button"
@@ -12,12 +21,13 @@ export function Switch({ checked, onChange, label, className }) {
       aria-label={label}
       onClick={() => onChange(!checked)}
       className={cn(
-        "relative h-7 w-12 shrink-0 pressable",
+        "relative shrink-0 pressable",
         "before:absolute before:inset-x-0 before:-inset-y-2",
+        s.box,
         className,
       )}
     >
-      <img src={checked ? ligado : desligado} alt="" width={48} height={28} />
+      <img src={checked ? s.on : s.off} alt="" width={s.w} height={s.h} />
     </button>
   );
 }

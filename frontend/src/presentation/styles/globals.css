@@ -45,6 +45,19 @@
   }
 }
 
+/* Campo de hora sem o ícone de relógio do navegador (o toque abre o seletor nativo no celular). */
+@utility time-input {
+  &::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+  &::-webkit-datetime-edit,
+  &::-webkit-datetime-edit-fields-wrapper,
+  &::-webkit-datetime-edit-hour-field,
+  &::-webkit-datetime-edit-minute-field {
+    padding: 0;
+  }
+}
+
 body {
   background: var(--color-paper);
   color: var(--color-ink);

@@ -2,13 +2,15 @@ import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import { StepProgress } from "@/presentation/components/ui/StepProgress";
 import { cn } from "@/presentation/utils/cn";
-import voltarIcon from "@/presentation/assets/icons/voltar-20.svg";
+import voltar18 from "@/presentation/assets/icons/voltar-18.svg";
+import voltar20 from "@/presentation/assets/icons/voltar-20.svg";
 
 export const TOTAL_PASSOS = 4;
 
 /**
  * Moldura dos passos do cadastro (ONB-01..05): topo, progresso, título,
  * conteúdo e botão fixo embaixo. onBack mostra o botão de voltar (do passo 2 em diante).
+ * backIcon: "20" ou "18" — o Figma usa tamanhos diferentes de seta por passo.
  */
 export function CadastroLayout({
   passo,
@@ -19,6 +21,7 @@ export function CadastroLayout({
   canSubmit = true,
   onSubmit,
   onBack,
+  backIcon = "20",
   contentClassName,
 }) {
   const handleSubmit = (e) => {
@@ -34,7 +37,14 @@ export function CadastroLayout({
     >
       <header className="flex h-13 items-center justify-between px-5">
         <div className="flex min-w-25 items-center">
-          {onBack && <IconButton icon={voltarIcon} label="Voltar" onClick={onBack} />}
+          {onBack && (
+            <IconButton
+              icon={backIcon === "18" ? voltar18 : voltar20}
+              iconSize={Number(backIcon)}
+              label="Voltar"
+              onClick={onBack}
+            />
+          )}
         </div>
         <p className="text-[13px] font-medium text-ink-2">
           Passo {passo} de {TOTAL_PASSOS}

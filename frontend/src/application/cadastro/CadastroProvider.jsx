@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { horariosPadrao } from "@/domain/horarios";
 import { lerDaSessao, salvarNaSessao } from "@/infrastructure/armazenamentoDaSessao";
 import { CadastroContext } from "./CadastroContext";
 
@@ -7,6 +8,7 @@ const CHAVE = "agendeaqui:cadastro";
 const vazio = {
   negocio: { nome: "", slug: "", linkEditado: false, whatsapp: "", endereco: "" },
   servicos: [],
+  horarios: horariosPadrao(),
 };
 
 /**
@@ -33,9 +35,13 @@ export function CadastroProvider({ children }) {
     }));
   }, []);
 
+  const salvarHorarios = useCallback((horarios) => {
+    setDados((atual) => ({ ...atual, horarios }));
+  }, []);
+
   const valor = useMemo(
-    () => ({ ...dados, foto, setFoto, salvarNegocio, adicionarServico }),
-    [dados, foto, salvarNegocio, adicionarServico],
+    () => ({ ...dados, foto, setFoto, salvarNegocio, adicionarServico, salvarHorarios }),
+    [dados, foto, salvarNegocio, adicionarServico, salvarHorarios],
   );
 
   return <CadastroContext.Provider value={valor}>{children}</CadastroContext.Provider>;

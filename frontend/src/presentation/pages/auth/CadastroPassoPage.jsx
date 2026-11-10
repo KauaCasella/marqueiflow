@@ -2,6 +2,7 @@
 import { useParams } from "react-router";
 import { SeuNegocioStep } from "@/presentation/components/cadastro/SeuNegocioStep";
 import { ServicosStep } from "@/presentation/components/cadastro/ServicosStep";
+import { HorariosStep } from "@/presentation/components/cadastro/HorariosStep";
 import NotFoundPage from "@/presentation/pages/NotFoundPage";
 
 export default function CadastroPassoPage() {
@@ -13,8 +14,9 @@ export default function CadastroPassoPage() {
     case "2":
       return <ServicosStep />;
     case "3":
+      return <HorariosStep />;
     case "4":
-      // Próximas telas: 3 horários, 4 Pix e sinal.
+      // Próxima tela: 4 Pix e sinal.
       return (
         <main className="mx-auto max-w-md p-6">
           <p className="text-sm text-ink-3">ONB · passo {passo}</p>
