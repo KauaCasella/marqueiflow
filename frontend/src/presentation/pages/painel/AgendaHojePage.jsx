@@ -7,6 +7,7 @@ import { AgendaVazia } from "@/presentation/components/agenda/AgendaVazia";
 import { ProximoAtendimento } from "@/presentation/components/agenda/ProximoAtendimento";
 import { AgendaDoDia } from "@/presentation/components/agenda/AgendaDoDia";
 import { DetalhesAgendamentoSheet } from "@/presentation/components/agenda/DetalhesAgendamentoSheet";
+import { NovoAgendamentoSheet } from "@/presentation/components/agenda/NovoAgendamentoSheet";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import maisIcon from "@/presentation/assets/icons/mais-20.svg";
 
@@ -73,6 +74,8 @@ export default function AgendaHojePage() {
   const [params] = useSearchParams();
   const vazia = params.get("estado") === "vazia";
   const [aberto, setAberto] = useState(null);
+  // P2: null = fechado; senão, o horário que já vem escolhido.
+  const [novoEm, setNovoEm] = useState(null);
 
   return (
     <PainelLayout aba="agenda">
@@ -83,10 +86,10 @@ export default function AgendaHojePage() {
             Hoje
           </h1>
         </div>
-        {/* TODO(AG-01): abrir o modal P2 Novo agendamento. */}
         <IconButton
           icon={maisIcon}
           label="Novo agendamento"
+          onClick={() => setNovoEm("17:30")}
           className="size-11 border-0 bg-ink before:hidden"
         />
       </header>
@@ -116,13 +119,22 @@ export default function AgendaHojePage() {
                 Ver semana
               </Link>
             </div>
-            {/* TODO(AG-01): Marcar abre o P2. */}
-            <AgendaDoDia itens={MAIS_TARDE} onAbrir={(item) => setAberto(paraDetalhes(item))} />
+            <AgendaDoDia
+              itens={MAIS_TARDE}
+              onAbrir={(item) => setAberto(paraDetalhes(item))}
+              onMarcar={(item) => setNovoEm(item.hora)}
+            />
           </section>
         </>
       )}
 
       <DetalhesAgendamentoSheet agendamento={aberto} onClose={() => setAberto(null)} />
+      <NovoAgendamentoSheet
+        key={novoEm}
+        open={novoEm !== null}
+        horario={novoEm ?? undefined}
+        onClose={() => setNovoEm(null)}
+      />
     </PainelLayout>
   );
 }
