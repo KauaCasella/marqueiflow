@@ -1,0 +1,11 @@
+import { BarraDeAbas } from "@/presentation/components/painel/BarraDeAbas";
+
+/** Moldura das telas do painel: conteúdo rolável e a barra de abas embaixo. */
+export function PainelLayout({ aba, children }) {
+  return (
+    <div className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-paper pt-3">
+      <main className="flex flex-1 flex-col gap-5 px-5 pt-3 pb-4">{children}</main>
+      <BarraDeAbas ativa={aba} />
+    </div>
+  );
+}
