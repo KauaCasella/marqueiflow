@@ -1,72 +1,59 @@
-// ONB-01 — Cadastro 1/4: seu negócio
+// ONB-01 — Cadastro 1/4: seu negócio (só a tela; sem regra por enquanto)
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useSeuNegocioForm } from "@/application/cadastro/useSeuNegocioForm";
 import { PhotoInput } from "@/presentation/components/ui/PhotoInput";
 import { TextField } from "@/presentation/components/ui/TextField";
 import checkIcon from "@/presentation/assets/icons/check.svg";
 import { CadastroLayout } from "./CadastroLayout";
 
-const linkHints = {
-  vazio: { texto: "Só letras e números. Dá para mudar depois.", tom: "neutro" },
-  disponivel: { texto: "Disponível. Dá para mudar depois.", tom: "sucesso" },
-  invalido: { texto: "Use de 3 a 30 letras ou números.", tom: "erro" },
-};
-
 export function SeuNegocioStep() {
   const navigate = useNavigate();
-  const form = useSeuNegocioForm();
-  const { foto, nome, slug, whatsapp, endereco } = form.valores;
-  const linkHint = linkHints[form.linkStatus];
+  const [foto, setFoto] = useState(null);
+  const [nome, setNome] = useState("");
+  const [link, setLink] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [endereco, setEndereco] = useState("");
 
   return (
     <CadastroLayout
       passo={1}
       title="Como seus clientes te encontram?"
-      canSubmit={form.podeContinuar}
-      onSubmit={() => {
-        form.salvar();
-        navigate("/cadastro/2");
-      }}
+      onSubmit={() => navigate("/cadastro/2")}
     >
       <PhotoInput
         title="Foto ou logo"
         description="Aparece no topo da sua página."
         value={foto}
-        onChange={form.setFoto}
+        onChange={setFoto}
       />
       <TextField
         label="Nome do negócio"
         placeholder="Rafa Barber"
         autoComplete="organization"
         value={nome}
-        onChange={(e) => form.setNome(e.target.value)}
+        onChange={(e) => setNome(e.target.value)}
       />
       <TextField
         label="Seu link"
         prefix="agendeaqui.com.br/"
-        placeholder="seunegocio"
+        placeholder="rafabarber"
         autoCapitalize="none"
         autoCorrect="off"
         spellCheck={false}
         inputClassName="font-semibold"
-        value={slug}
-        onChange={(e) => form.setLink(e.target.value)}
-        suffix={
-          form.linkStatus === "disponivel" ? (
-            <img src={checkIcon} alt="" width={18} height={18} />
-          ) : undefined
-        }
-        hint={linkHint.texto}
-        hintTone={linkHint.tom}
+        value={link}
+        onChange={(e) => setLink(e.target.value)}
+        suffix={link ? <img src={checkIcon} alt="" width={18} height={18} /> : undefined}
+        hint={link ? "Disponível. Dá para mudar depois." : "Dá para mudar depois."}
+        hintTone={link ? "sucesso" : "neutro"}
       />
       <TextField
         label="WhatsApp do negócio"
         type="tel"
-        inputMode="numeric"
         autoComplete="tel-national"
         placeholder="(19) 9 8123-4567"
         value={whatsapp}
-        onChange={(e) => form.setWhatsapp(e.target.value)}
+        onChange={(e) => setWhatsapp(e.target.value)}
         hint="Os clientes falam com você por aqui."
       />
       <TextField
@@ -74,7 +61,7 @@ export function SeuNegocioStep() {
         autoComplete="street-address"
         placeholder="R. Barão de Jaguara, 1200 · Centro"
         value={endereco}
-        onChange={(e) => form.setEndereco(e.target.value)}
+        onChange={(e) => setEndereco(e.target.value)}
       />
     </CadastroLayout>
   );

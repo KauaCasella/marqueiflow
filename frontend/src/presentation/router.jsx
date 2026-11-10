@@ -1,5 +1,4 @@
-import { createBrowserRouter, Outlet } from "react-router";
-import { CadastroProvider } from "@/application/cadastro/CadastroProvider";
+import { createBrowserRouter } from "react-router";
 import { RootLayout } from "@/presentation/RootLayout";
 import CadastroNovoServicoPage from "@/presentation/pages/auth/CadastroNovoServicoPage";
 import HomePage from "@/presentation/pages/HomePage";
@@ -39,20 +38,9 @@ function routes() {
     { path: "/a/:token/remarcar", element: <RemarcarPage /> }, // CLI-03
     { path: "/meus-horarios", element: <MeusHorariosPage /> }, // CLI-01
     { path: "/entrar", element: <EntrarPage /> }, // AUTH-03
-    {
-      // Todos os passos do cadastro dividem os mesmos dados (CadastroProvider).
-      path: "/cadastro",
-      element: (
-        <CadastroProvider>
-          <Outlet />
-        </CadastroProvider>
-      ),
-      children: [
-        { path: ":passo", element: <CadastroPassoPage /> }, // ONB-01..05
-        { path: "servicos/novo", element: <CadastroNovoServicoPage /> }, // ONB-02 (form de AJ-03)
-        { path: "pronto", element: <CadastroProntoPage /> }, // ONB-06
-      ],
-    },
+    { path: "/cadastro/:passo", element: <CadastroPassoPage /> }, // ONB-01..05
+    { path: "/cadastro/servicos/novo", element: <CadastroNovoServicoPage /> }, // ONB-02 (form de AJ-03)
+    { path: "/cadastro/pronto", element: <CadastroProntoPage /> }, // ONB-06
     { path: "/painel", element: <AgendaHojePage /> }, // AG-01
     { path: "/painel/semana", element: <SemanaPage /> }, // AG-03
     { path: "/painel/clientes", element: <ClientesPage /> }, // CLT-01

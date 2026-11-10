@@ -1,13 +1,6 @@
 // AJ-03 / ONB-02 — Formulário de serviço (Figma: 15 · Adicionar serviço).
-// Usado no cadastro (passo 2) e, depois, em Ajustes › Serviços.
-import {
-  OPCOES_DURACAO,
-  OPCOES_INTERVALO,
-  OPCOES_SINAL,
-  useServicoForm,
-} from "@/application/servicos/useServicoForm";
-import { formatarDuracao, formatarMoeda } from "@/domain/formatacao";
-import { resumoServico } from "@/domain/servico";
+// Só a tela; sem regra por enquanto. Usado no cadastro e, depois, em Ajustes › Serviços.
+import { useState } from "react";
 import { Button } from "@/presentation/components/ui/Button";
 import { ChoiceChips } from "@/presentation/components/ui/ChoiceChips";
 import { IconButton } from "@/presentation/components/ui/IconButton";
@@ -18,17 +11,25 @@ import { TextField } from "@/presentation/components/ui/TextField";
 import voltarIcon from "@/presentation/assets/icons/voltar-18.svg";
 
 const duracoes = [
-  ...OPCOES_DURACAO.map((min) => ({ value: min, label: formatarDuracao(min) })),
+  { value: 15, label: "15 min" },
+  { value: 20, label: "20 min" },
+  { value: 30, label: "30 min" },
+  { value: 45, label: "45 min" },
+  { value: 60, label: "1 h" },
   { value: "outro", label: "Outro" },
 ];
 const sinais = [
-  ...OPCOES_SINAL.map((pct) => ({ value: pct, label: `${pct}%` })),
+  { value: 20, label: "20%" },
+  { value: 30, label: "30%" },
+  { value: 50, label: "50%" },
   { value: "fixo", label: "Valor fixo" },
 ];
-const intervalos = OPCOES_INTERVALO.map((min) => ({
-  value: min,
-  label: min === 0 ? "Nenhum" : formatarDuracao(min),
-}));
+const intervalos = [
+  { value: 0, label: "Nenhum" },
+  { value: 5, label: "5 min" },
+  { value: 10, label: "10 min" },
+  { value: 15, label: "15 min" },
+];
 
 function Secao({ titulo, descricao, children }) {
   return (
@@ -40,13 +41,22 @@ function Secao({ titulo, descricao, children }) {
   );
 }
 
-export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave }) {
-  const form = useServicoForm(inicial);
-  const c = form.campos;
+export function ServicoForm({ titulo = "Novo serviço", onBack, onSave }) {
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [duracao, setDuracao] = useState(20);
+  const [duracaoOutro, setDuracaoOutro] = useState("");
+  const [preco, setPreco] = useState("");
+  const [cobrarSinal, setCobrarSinal] = useState(true);
+  const [sinal, setSinal] = useState(30);
+  const [sinalFixo, setSinalFixo] = useState("");
+  const [intervalo, setIntervalo] = useState(5);
+  const [visivel, setVisivel] = useState(true);
+  const [destaque, setDestaque] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (form.podeSalvar) onSave(form.servico);
+    onSave();
   };
 
   return (
@@ -64,14 +74,14 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
         <TextField
           label="Nome do serviço"
           placeholder="Sobrancelha na navalha"
-          value={c.nome}
-          onChange={(e) => form.setNome(e.target.value)}
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
         />
         <TextField
           label="Descrição (opcional)"
           placeholder="Ex.: inclui lavagem e finalização"
-          value={c.descricao}
-          onChange={(e) => form.setDescricao(e.target.value)}
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
           hint="Aparece embaixo do nome, na sua página."
         />
 
@@ -79,19 +89,14 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
           titulo="Duração"
           descricao="A agenda usa esse tempo para mostrar só horários que cabem."
         >
-          <ChoiceChips
-            label="Duração"
-            options={duracoes}
-            value={c.duracaoOpcao}
-            onChange={form.setDuracaoOpcao}
-          />
-          {c.duracaoOpcao === "outro" && (
+          <ChoiceChips label="Duração" options={duracoes} value={duracao} onChange={setDuracao} />
+          {duracao === "outro" && (
             <TextField
               aria-label="Duração em minutos"
               inputMode="numeric"
               placeholder="Ex.: 40"
-              value={c.duracaoOutro}
-              onChange={(e) => form.setDuracaoOutro(e.target.value)}
+              value={duracaoOutro}
+              onChange={(e) => setDuracaoOutro(e.target.value)}
               suffix={<span className="text-base text-ink-2">min</span>}
             />
           )}
@@ -103,8 +108,8 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
           prefixClassName="mr-1 text-ink"
           inputMode="decimal"
           placeholder="25"
-          value={c.precoTexto}
-          onChange={(e) => form.setPrecoTexto(e.target.value)}
+          value={preco}
+          onChange={(e) => setPreco(e.target.value)}
         />
 
         <ListGroup inset>
@@ -115,42 +120,36 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
             trailing={
               <Switch
                 label="Cobrar sinal via Pix"
-                checked={c.cobrarSinal}
-                onChange={form.setCobrarSinal}
+                checked={cobrarSinal}
+                onChange={setCobrarSinal}
               />
             }
           />
-          {c.cobrarSinal && (
+          {cobrarSinal && (
             <div className="flex flex-col gap-2.5 px-4 pt-3.5 pb-4">
               <h2 className="text-sm font-semibold text-ink">Quanto do valor</h2>
               <ChoiceChips
                 label="Quanto do valor"
                 options={sinais}
-                value={c.sinalOpcao}
-                onChange={form.setSinalOpcao}
+                value={sinal}
+                onChange={setSinal}
               />
-              {c.sinalOpcao === "fixo" && (
+              {sinal === "fixo" && (
                 <TextField
                   aria-label="Valor do sinal"
                   prefix="R$"
                   prefixClassName="mr-1 text-ink"
                   inputMode="decimal"
                   placeholder="10"
-                  value={c.sinalFixoTexto}
-                  onChange={(e) => form.setSinalFixoTexto(e.target.value)}
-                  hint={form.erros.includes("sinal") ? "O sinal não pode passar do preço." : null}
-                  hintTone="erro"
+                  value={sinalFixo}
+                  onChange={(e) => setSinalFixo(e.target.value)}
                 />
               )}
-              {form.valorSinal > 0 && (
-                <p className="rounded-xl bg-accent-soft px-3 py-2.5 text-[13px] leading-[1.4] text-ink-2">
-                  O cliente paga{" "}
-                  <strong className="font-semibold text-ink">
-                    {formatarMoeda(form.valorSinal)}
-                  </strong>{" "}
-                  ao agendar e o resto no dia.
-                </p>
-              )}
+              {/* Texto de exemplo do Figma; o valor real vem quando houver regra. */}
+              <p className="rounded-xl bg-accent-soft px-3 py-2.5 text-[13px] leading-[1.4] text-ink-2">
+                O cliente paga <strong className="font-semibold text-ink">R$ 7,50</strong> ao
+                agendar e o resto no dia.
+              </p>
             </div>
           )}
         </ListGroup>
@@ -162,8 +161,8 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
           <ChoiceChips
             label="Intervalo depois do atendimento"
             options={intervalos}
-            value={c.intervaloMin}
-            onChange={form.setIntervaloMin}
+            value={intervalo}
+            onChange={setIntervalo}
           />
         </Secao>
 
@@ -173,22 +172,14 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
             title="Mostrar na minha página"
             description="Desligado, só você consegue marcar este serviço."
             trailing={
-              <Switch
-                label="Mostrar na minha página"
-                checked={c.visivel}
-                onChange={form.setVisivel}
-              />
+              <Switch label="Mostrar na minha página" checked={visivel} onChange={setVisivel} />
             }
           />
           <ListRow
             size="md"
             title="Destacar como “mais pedido”"
             trailing={
-              <Switch
-                label="Destacar como mais pedido"
-                checked={c.destaque}
-                onChange={form.setDestaque}
-              />
+              <Switch label="Destacar como mais pedido" checked={destaque} onChange={setDestaque} />
             }
           />
         </ListGroup>
@@ -198,16 +189,16 @@ export function ServicoForm({ titulo = "Novo serviço", inicial, onBack, onSave 
           <ListGroup>
             <ListRow
               rowClassName="py-4.5"
-              title={form.servico.nome || "Nome do serviço"}
-              description={resumoServico(form.servico)}
-              trailing={formatarMoeda(form.servico.preco ?? 0)}
+              title={nome || "Sobrancelha na navalha"}
+              description="20 min · sinal de R$ 7,50"
+              trailing={preco ? `R$ ${preco}` : "R$ 25"}
             />
           </ListGroup>
         </section>
       </main>
 
       <footer className="sticky bottom-0 border-t border-line bg-surface px-5 pt-3 pb-8.5">
-        <Button type="submit" className="w-full" disabled={!form.podeSalvar}>
+        <Button type="submit" className="w-full">
           Salvar serviço
         </Button>
       </footer>

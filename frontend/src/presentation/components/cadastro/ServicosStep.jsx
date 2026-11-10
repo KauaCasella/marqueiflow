@@ -1,17 +1,20 @@
-// ONB-02 — Cadastro 2/4: serviços
+// ONB-02 — Cadastro 2/4: serviços (só a tela; lista de exemplo do Figma)
 import { useNavigate } from "react-router";
-import { useCadastro } from "@/application/cadastro/CadastroContext";
-import { formatarMoeda } from "@/domain/formatacao";
-import { resumoServico } from "@/domain/servico";
 import { DashedButton } from "@/presentation/components/ui/DashedButton";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
 import { ListRow } from "@/presentation/components/ui/ListRow";
 import maisIcon from "@/presentation/assets/icons/mais.svg";
 import { CadastroLayout } from "./CadastroLayout";
 
+// Dados de exemplo até existir back-end.
+const servicosExemplo = [
+  { id: "1", nome: "Corte", detalhe: "30 min", preco: "R$ 40" },
+  { id: "2", nome: "Corte + barba", detalhe: "50 min · sinal de R$ 18", preco: "R$ 60" },
+  { id: "3", nome: "Barba", detalhe: "20 min", preco: "R$ 25" },
+];
+
 export function ServicosStep() {
   const navigate = useNavigate();
-  const { servicos } = useCadastro();
 
   return (
     <CadastroLayout
@@ -19,23 +22,15 @@ export function ServicosStep() {
       title="Quais serviços você oferece?"
       description="Comece pelos mais pedidos. Dá para editar quando quiser."
       submitLabel="Continuar para horários"
-      canSubmit={servicos.length > 0}
       onSubmit={() => navigate("/cadastro/3")}
       onBack={() => navigate("/cadastro/1")}
       contentClassName="gap-5 pt-5"
     >
-      {servicos.length > 0 && (
-        <ListGroup>
-          {servicos.map((servico) => (
-            <ListRow
-              key={servico.id}
-              title={servico.nome}
-              description={resumoServico(servico)}
-              trailing={formatarMoeda(servico.preco)}
-            />
-          ))}
-        </ListGroup>
-      )}
+      <ListGroup>
+        {servicosExemplo.map((s) => (
+          <ListRow key={s.id} title={s.nome} description={s.detalhe} trailing={s.preco} />
+        ))}
+      </ListGroup>
       <DashedButton icon={maisIcon} onClick={() => navigate("/cadastro/servicos/novo")}>
         Adicionar serviço
       </DashedButton>
