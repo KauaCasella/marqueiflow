@@ -26,7 +26,7 @@ export function LandingHero() {
           Um link para seus clientes marcarem sozinhos. Você só aparece para atender.
         </p>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
-          <Button as={Link} to="/entrar" className="w-full lg:w-auto">
+          <Button as={Link} to="/criar-conta" className="w-full lg:w-auto">
             Criar minha agenda grátis
           </Button>
           <p className="text-center text-[13px] text-ink-2 lg:text-left lg:text-sm">

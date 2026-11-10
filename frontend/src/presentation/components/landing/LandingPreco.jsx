@@ -22,7 +22,7 @@ export function LandingPreco() {
         </div>
         <Button
           as={Link}
-          to="/entrar"
+          to="/criar-conta"
           variant="destaque"
           className="w-full lg:h-14 lg:w-auto lg:shrink-0 lg:px-7 lg:text-[17px]"
         >

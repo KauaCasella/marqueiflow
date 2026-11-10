@@ -13,7 +13,7 @@ export function LandingTopo() {
         <Button as={Link} to="/entrar" variant="texto">
           Entrar
         </Button>
-        <Button as={Link} to="/entrar" className="hidden lg:inline-flex">
+        <Button as={Link} to="/criar-conta" className="hidden lg:inline-flex">
           Criar minha agenda
         </Button>
       </nav>

@@ -106,7 +106,7 @@ export default function AgendamentoProntoPage() {
       <footer className="flex flex-col items-center gap-2.5 px-5 pt-12 pb-8.5 leading-[normal]">
         <p className="flex items-center gap-1.5 text-[13px] text-ink-2">
           Você também atende? Crie grátis no
-          <Link to="/entrar">
+          <Link to="/criar-conta">
             <Logo as="span" className="text-[13px] leading-[normal] tracking-[-0.03em]" />
           </Link>
         </p>

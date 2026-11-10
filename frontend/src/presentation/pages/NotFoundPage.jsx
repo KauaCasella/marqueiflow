@@ -33,7 +33,7 @@ export default function NotFoundPage() {
 
       <footer className="flex flex-col items-center gap-2.5 px-5 pt-3 pb-8.5 leading-[normal]">
         <Link
-          to="/entrar"
+          to="/criar-conta"
           className="flex w-full pressable flex-col items-center gap-1 rounded-2xl border border-line bg-surface px-4 py-3.5 text-center"
         >
           <span className="text-sm font-semibold text-ink">Você atende clientes?</span>
