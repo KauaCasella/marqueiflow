@@ -5,11 +5,14 @@ const variants = {
   texto: "text-ink",
   perigo: "bg-danger text-surface",
 };
-/** Botão base. Primário: uma ação por tela. Perigo: ação que desfaz algo (ex.: cancelar). */
-export function Button({ variant = "primario", className, type = "button", ...props }) {
+/**
+ * Botão base. Primário: uma ação por tela. Perigo: ação que desfaz algo (ex.: cancelar).
+ * as: troca o elemento (ex.: as={Link} to="/entrar" para um link com cara de botão).
+ */
+export function Button({ variant = "primario", className, as: Tag = "button", type, ...props }) {
   return (
-    <button
-      type={type}
+    <Tag
+      type={Tag === "button" ? (type ?? "button") : type}
       className={cn(
         "inline-flex h-13 pressable items-center justify-center gap-2 rounded-[14px] px-6",
         "text-base font-semibold tracking-[-0.16px]",

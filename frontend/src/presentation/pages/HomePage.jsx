@@ -1,12 +1,15 @@
-import { Logo } from "@/presentation/components/ui/Logo";
+// LP-01 — Landing page da rota principal (Figma · Landing page, celular e computador).
+// Feita parte por parte: por enquanto o topo e a chamada principal.
+import { LandingHero } from "@/presentation/components/landing/LandingHero";
+import { LandingTopo } from "@/presentation/components/landing/LandingTopo";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-md p-6">
-      <h1>
-        <Logo as="span" />
-      </h1>
-      <p className="mt-2 text-ink-2">Agenda online para profissionais autônomos.</p>
-    </main>
+    <div className="flex flex-1 flex-col bg-paper">
+      <LandingTopo />
+      <main>
+        <LandingHero />
+      </main>
+    </div>
   );
 }
