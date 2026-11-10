@@ -1,5 +1,7 @@
 // CLI-02 — Seu agendamento (só a tela; dados de exemplo do Figma)
+import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
+import { CancelarHorarioSheet } from "@/presentation/components/agendamento/CancelarHorarioSheet";
 import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
@@ -19,6 +21,7 @@ const linha =
 export default function SeuAgendamentoPage() {
   const { token } = useParams();
   const navigate = useNavigate();
+  const [cancelando, setCancelando] = useState(false);
 
   // Exemplo até existir back-end. TODO(CLI-02): telas de trocar serviço e meus dados.
   const ALTERACOES = [
@@ -127,15 +130,16 @@ export default function SeuAgendamentoPage() {
       </main>
 
       <footer className="flex flex-col px-5 pt-3 pb-8.5">
-        {/* TODO(CLI-02): confirmar no modal C1 antes de cancelar. */}
-        <Button
-          variant="texto"
-          className="w-full text-danger"
-          onClick={() => navigate(`/a/${token}/cancelado`)}
-        >
+        <Button variant="texto" className="w-full text-danger" onClick={() => setCancelando(true)}>
           Cancelar agendamento
         </Button>
       </footer>
+
+      <CancelarHorarioSheet
+        open={cancelando}
+        onClose={() => setCancelando(false)}
+        onConfirmar={() => navigate(`/a/${token}/cancelado`)}
+      />
     </div>
   );
 }

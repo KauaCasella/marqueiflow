@@ -3,8 +3,9 @@ const variants = {
   primario: "bg-ink text-surface",
   secundario: "border border-line bg-surface text-ink",
   texto: "text-ink",
+  perigo: "bg-danger text-surface",
 };
-/** Botão base. Primário: uma ação por tela. */
+/** Botão base. Primário: uma ação por tela. Perigo: ação que desfaz algo (ex.: cancelar). */
 export function Button({ variant = "primario", className, type = "button", ...props }) {
   return (
     <button

@@ -1,12 +1,13 @@
 import { useEffect, useId } from "react";
 import { IconButton } from "@/presentation/components/ui/IconButton";
+import { cn } from "@/presentation/utils/cn";
 import fecharIcon from "@/presentation/assets/icons/fechar-16.svg";
 
 /**
  * Folha que sobe de baixo (Figma · Modais): fundo escurecido, alça, título, texto e botão de fechar.
- * Fecha ao tocar no fundo, no X ou com Esc.
+ * Fecha ao tocar no fundo, no X ou com Esc. className: ajustes da folha (ex.: outro espaçamento).
  */
-export function BottomSheet({ open, onClose, title, description, children }) {
+export function BottomSheet({ open, onClose, title, description, className, children }) {
   const titleId = useId();
 
   useEffect(() => {
@@ -30,7 +31,10 @@ export function BottomSheet({ open, onClose, title, description, children }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative flex max-h-[92dvh] w-full max-w-[430px] flex-col gap-4.5 overflow-y-auto rounded-t-3xl bg-surface px-5 pt-2.5 pb-8.5"
+        className={cn(
+          "relative flex max-h-[92dvh] w-full max-w-[430px] flex-col gap-4.5 overflow-y-auto rounded-t-3xl bg-surface px-5 pt-2.5 pb-8.5",
+          className,
+        )}
       >
         <div className="flex justify-center" aria-hidden="true">
           <div className="h-1 w-9 rounded-sm bg-line" />
