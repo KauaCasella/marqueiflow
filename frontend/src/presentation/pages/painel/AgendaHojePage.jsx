@@ -8,6 +8,7 @@ import { ProximoAtendimento } from "@/presentation/components/agenda/ProximoAten
 import { AgendaDoDia } from "@/presentation/components/agenda/AgendaDoDia";
 import { DetalhesAgendamentoSheet } from "@/presentation/components/agenda/DetalhesAgendamentoSheet";
 import { NovoAgendamentoSheet } from "@/presentation/components/agenda/NovoAgendamentoSheet";
+import { LembreteSheet } from "@/presentation/components/agenda/LembreteSheet";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import maisIcon from "@/presentation/assets/icons/mais-20.svg";
 
@@ -22,6 +23,12 @@ const PROXIMO = {
   valor: "R$ 60",
   sinal: "R$ 18 · recebido",
 };
+
+// Mensagem do lembrete (modal P3).
+const LEMBRETE = [
+  "Oi, Lucas! Passando para lembrar do seu horário hoje às 16:30 — Corte + barba, na Rafa Barber.",
+  "Precisa remarcar? marqueiflow.com.br/rafabarber",
+].join("\n");
 
 const MAIS_TARDE = [
   {
@@ -76,6 +83,7 @@ export default function AgendaHojePage() {
   const [aberto, setAberto] = useState(null);
   // P2: null = fechado; senão, o horário que já vem escolhido.
   const [novoEm, setNovoEm] = useState(null);
+  const [lembrando, setLembrando] = useState(false);
 
   return (
     <PainelLayout aba="agenda">
@@ -100,12 +108,12 @@ export default function AgendaHojePage() {
         <>
           <p className="text-sm text-ink-2">6 atendimentos · R$ 340 previstos · 1 sinal pendente</p>
 
-          {/* TODO(AG-01): Lembrete abre o modal P3. */}
           <ProximoAtendimento
             quando="em 25 min"
             hora="16:30"
             cliente="Lucas Andrade"
             detalhe="Corte + barba · sinal pago"
+            onLembrete={() => setLembrando(true)}
             onDetalhes={() => setAberto(PROXIMO)}
           />
 
@@ -129,6 +137,12 @@ export default function AgendaHojePage() {
       )}
 
       <DetalhesAgendamentoSheet agendamento={aberto} onClose={() => setAberto(null)} />
+      <LembreteSheet
+        open={lembrando}
+        onClose={() => setLembrando(false)}
+        cliente="Lucas"
+        mensagem={LEMBRETE}
+      />
       <NovoAgendamentoSheet
         key={novoEm}
         open={novoEm !== null}
