@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/*
+ * Tokens do AgendeAqui.
+ * Os valores são provisórios — conferir com o Figma antes de usar em tela.
+ * Nas telas, use só as classes geradas (bg-ink, text-ink-2, bg-accent...), nunca hex solto.
+ */
+@theme {
+  --color-surface: #ffffff;
+  --color-surface-2: #f6f5f3;
+  --color-line: #e7e5e1;
+
+  --color-ink: #141414;
+  --color-ink-2: #5c5a56;
+  --color-ink-3: #8e8b85;
+
+  --color-accent: #ff6a1a;
+  --color-accent-strong: #c2410c;
+
+  --radius-card: 16px;
+  --radius-control: 14px;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
