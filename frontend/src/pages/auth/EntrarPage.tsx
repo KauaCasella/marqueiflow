@@ -1,5 +1,5 @@
 // AUTH-03 — Entrar
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { AgendaPreview } from "@/features/cadastro/AgendaPreview";
@@ -7,7 +7,9 @@ import emailIcon from "@/assets/icons/email.svg";
 
 export default function EntrarPage() {
   // TODO(AUTH-03): ligar ao login quando o back-end existir.
-  const entrarComGoogle = () => {};
+  const navigate = useNavigate();
+  // Por enquanto só segue para o cadastro.
+  const entrarComGoogle = () => navigate("/cadastro/1");
   const receberLinkPorEmail = () => {};
 
   return (
