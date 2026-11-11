@@ -1,0 +1,318 @@
+/*
+ * Componentes base (components/ui): botão, campo de texto, lista, modal, etc.
+ * Cada nome usa as classes do Tailwind com @apply; as cores e tamanhos vêm do global.css.
+ * Ficam na camada "components" de propósito: quem usa o componente ainda consegue ajustar
+ * por cima (ex.: <Button className="w-full">), e os estilos das áreas também.
+ */
+
+@layer components {
+  /* ---------- Botão ---------- */
+  .botao {
+    @apply inline-flex h-13 pressable items-center justify-center gap-2 rounded-[14px] px-6 text-base font-semibold tracking-[-0.16px];
+  }
+  .botao-primario {
+    @apply bg-ink text-surface;
+  }
+  .botao-secundario {
+    @apply border border-line bg-surface text-ink;
+  }
+  .botao-texto {
+    @apply text-ink;
+  }
+  .botao-perigo {
+    @apply bg-danger text-surface;
+  }
+  .botao-destaque {
+    @apply bg-accent text-ink;
+  }
+
+  /* ---------- Botão de ícone (redondo) ---------- */
+  .botao-icone {
+    @apply relative flex size-10 shrink-0 pressable items-center justify-center rounded-full border border-line bg-surface before:absolute before:-inset-0.5;
+  }
+
+  /* ---------- Botão tracejado (adicionar) ---------- */
+  .botao-tracejado {
+    @apply flex h-14 w-full pressable items-center gap-2.5 rounded-2xl border-[1.5px] border-dashed border-ink-3 px-4.5 text-[15px] font-semibold tracking-[-0.15px] text-ink;
+  }
+
+  /* ---------- Logo ---------- */
+  .logo {
+    @apply text-[26px] leading-none font-bold tracking-[-0.05em] text-ink;
+  }
+  .logo-f {
+    @apply tracking-[-0.08em];
+  }
+  .logo-ponto {
+    @apply text-accent;
+  }
+
+  /* ---------- Lista agrupada (cartão com divisórias) ---------- */
+  .lista {
+    @apply flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-surface;
+  }
+  .lista-divisoria {
+    @apply flex;
+  }
+  .lista-divisoria-recuo {
+    @apply pl-4;
+  }
+  .lista-divisoria-linha {
+    @apply h-px flex-1 bg-line;
+  }
+
+  /* ---------- Linha de lista (título, descrição e valor) ---------- */
+  .linha {
+    @apply flex w-full flex-col;
+  }
+  .linha-conteudo {
+    @apply flex w-full items-center justify-between;
+  }
+  .linha-texto {
+    @apply flex min-w-0 flex-1 flex-col;
+  }
+  .linha-titulo {
+    @apply font-semibold text-ink;
+  }
+  .linha-descricao {
+    @apply text-[13px] text-ink-2;
+  }
+  .linha-valor {
+    @apply shrink-0 font-semibold text-ink tabular-nums;
+  }
+  .linha-conteudo-lg {
+    @apply gap-4 px-5 py-4;
+  }
+  .linha-titulo-lg {
+    @apply text-[17px] tracking-[-0.17px];
+  }
+  .linha-texto-lg {
+    @apply gap-1;
+  }
+  .linha-descricao-lg {
+    @apply leading-normal;
+  }
+  .linha-conteudo-md {
+    @apply gap-3 px-4 py-3.5;
+  }
+  .linha-titulo-md {
+    @apply text-[15px] tracking-[-0.15px];
+  }
+  .linha-texto-md {
+    @apply gap-0.5;
+  }
+  .linha-descricao-md {
+    @apply leading-[1.4];
+  }
+
+  /* ---------- Selo de status ---------- */
+  .selo {
+    @apply inline-flex h-7 shrink-0 items-center gap-1.5 rounded-[14px] pr-3 pl-2.5 text-[13px] font-semibold whitespace-nowrap;
+  }
+  .selo-confirmado {
+    @apply bg-success-soft text-success;
+  }
+  .selo-aguardando {
+    @apply bg-accent-soft text-accent-strong;
+  }
+  .selo-faltou {
+    @apply bg-paper text-danger;
+  }
+
+  /* ---------- Interruptor ---------- */
+  .interruptor {
+    @apply relative shrink-0 pressable before:absolute before:inset-x-0 before:-inset-y-2;
+  }
+  .interruptor-md {
+    @apply h-7 w-12;
+  }
+  .interruptor-sm {
+    @apply h-6.5 w-11;
+  }
+
+  /* ---------- Controle segmentado (Todos / Sumidos / Novos) ---------- */
+  .segmentado {
+    @apply flex gap-1 rounded-xl bg-line p-1 leading-[normal];
+  }
+  .segmentado-opcao {
+    @apply relative flex h-9 flex-1 pressable items-center justify-center gap-1.5 rounded-[9px] before:absolute before:inset-x-0 before:-inset-y-1;
+  }
+  .segmentado-opcao-ativa {
+    @apply bg-surface text-ink;
+  }
+  .segmentado-opcao-inativa {
+    @apply text-ink-2;
+  }
+  .segmentado-rotulo {
+    @apply text-sm;
+  }
+  .segmentado-rotulo-ativo {
+    @apply font-semibold;
+  }
+  .segmentado-rotulo-inativo {
+    @apply font-medium;
+  }
+  .segmentado-contagem {
+    @apply text-[13px] font-medium text-ink-2 tabular-nums;
+  }
+
+  /* ---------- Opções em pílulas (escolha única) ---------- */
+  .opcoes {
+    @apply flex flex-wrap gap-2;
+  }
+  .opcao {
+    @apply relative flex h-10 pressable items-center justify-center rounded-xl px-3 text-sm font-semibold tracking-[-0.14px] before:absolute before:inset-x-0 before:-inset-y-0.5;
+  }
+  .opcao-ativa {
+    @apply bg-ink text-surface;
+  }
+  .opcao-inativa {
+    @apply border border-line bg-surface text-ink;
+  }
+
+  /* ---------- Horário (livre, selecionado, indisponível) ---------- */
+  .horario {
+    @apply flex h-12 w-19 items-center justify-center rounded-[14px] text-base font-semibold tracking-[-0.16px] tabular-nums;
+  }
+  .horario-livre {
+    @apply border border-line bg-surface text-ink;
+  }
+  .horario-selecionado {
+    @apply bg-accent text-ink;
+  }
+  .horario-indisponivel {
+    @apply bg-paper text-ink-3 line-through;
+  }
+  .horario-botao {
+    @apply pressable;
+  }
+
+  /* ---------- Intervalo de horas (09:00 – 19:00) ---------- */
+  .intervalo {
+    @apply flex h-8.5 shrink-0 items-center gap-1 rounded-[10px] bg-paper px-3 text-sm font-medium text-ink tabular-nums;
+  }
+  .intervalo-invalido {
+    @apply text-danger ring-1 ring-danger;
+  }
+  .intervalo-hora {
+    @apply relative -my-[5px] time-input h-11 w-[39px] rounded-md bg-transparent outline-none focus-visible:bg-surface;
+  }
+
+  /* ---------- Barra de passos do cadastro ---------- */
+  .passos {
+    @apply flex w-full gap-1.5;
+  }
+  .passos-barra {
+    @apply h-[3px] flex-1 rounded-[2px];
+  }
+  .passos-barra-feita {
+    @apply bg-ink;
+  }
+  .passos-barra-pendente {
+    @apply bg-line;
+  }
+
+  /* ---------- Foto (logo ou foto do negócio) ---------- */
+  .foto {
+    @apply flex w-full items-center gap-3.5;
+  }
+  .foto-botao {
+    @apply flex size-18 shrink-0 pressable items-center justify-center overflow-hidden rounded-full bg-surface;
+  }
+  .foto-botao-vazio {
+    @apply border-[1.5px] border-dashed border-ink-3;
+  }
+  .foto-imagem {
+    @apply size-full object-cover;
+  }
+  .foto-texto {
+    @apply flex min-w-0 flex-1 flex-col gap-0.5;
+  }
+  .foto-titulo {
+    @apply text-[15px] font-semibold tracking-[-0.15px] text-ink;
+  }
+  .foto-descricao {
+    @apply text-[13px] text-ink-2;
+  }
+
+  /* ---------- Campo de texto ---------- */
+  .campo {
+    @apply flex w-full flex-col gap-2;
+  }
+  .campo-rotulo {
+    @apply text-sm font-semibold text-ink;
+  }
+  .campo-caixa {
+    @apply flex h-13 w-full items-center rounded-[14px] border border-line bg-surface px-4 focus-within:border-ink focus-within:ring-[0.5px] focus-within:ring-ink;
+  }
+  .campo-caixa-erro {
+    @apply border-danger ring-[0.5px] ring-danger focus-within:border-danger focus-within:ring-danger;
+  }
+  .campo-caixa-com-sufixo {
+    @apply pr-3.5;
+  }
+  .campo-prefixo {
+    @apply shrink-0 text-base text-ink-2;
+  }
+  .campo-entrada {
+    @apply h-full min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink-3;
+  }
+  .campo-sufixo {
+    @apply ml-2 flex shrink-0 items-center;
+  }
+  .campo-dica {
+    @apply text-[13px];
+  }
+  .campo-dica-neutra {
+    @apply font-normal text-ink-2;
+  }
+  .campo-dica-sucesso {
+    @apply font-medium text-success;
+  }
+  .campo-dica-erro {
+    @apply font-medium text-danger;
+  }
+
+  /* ---------- Modal que sobe de baixo (folha) ---------- */
+  .folha-fundo {
+    @apply fixed inset-0 z-50 flex items-end justify-center;
+  }
+  .folha-escurecimento {
+    @apply absolute inset-0 bg-ink/45;
+  }
+  .folha {
+    @apply relative flex max-h-[92dvh] w-full max-w-[430px] flex-col gap-4.5 overflow-y-auto rounded-t-3xl bg-surface px-5 pt-2.5 pb-8.5 outline-none;
+  }
+  .folha-alca {
+    @apply flex justify-center;
+  }
+  .folha-alca-barra {
+    @apply h-1 w-9 rounded-sm bg-line;
+  }
+  .folha-cabecalho {
+    @apply flex items-start gap-3;
+  }
+  .folha-textos {
+    @apply flex min-w-0 flex-1 flex-col gap-1.5;
+  }
+  .folha-titulo {
+    @apply text-[22px] leading-[1.2] font-semibold tracking-[-0.44px] text-ink;
+  }
+  .folha-descricao {
+    @apply text-[15px] leading-[1.45] text-ink-2;
+  }
+  .folha-fechar {
+    @apply size-9 border-0 bg-paper before:-inset-1;
+  }
+
+  /* ---------- Aviso rápido (toast) ---------- */
+  .aviso-area {
+    @apply pointer-events-none fixed inset-x-0 bottom-30 z-50 flex justify-center px-5;
+  }
+  .aviso {
+    @apply flex items-center gap-2.5 rounded-full bg-ink py-3 pr-4.5 pl-3.5 text-sm leading-[normal] font-medium text-surface;
+  }
+  .aviso-icone {
+    @apply flex size-6 shrink-0 items-center justify-center rounded-full bg-success;
+  }
+}

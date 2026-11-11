@@ -1,7 +1,8 @@
 @import "@fontsource-variable/geist";
 @import "tailwindcss";
 
-/* Estilos por área: um arquivo para cada parte do app. */
+/* Estilos por área: um arquivo para cada parte do app. Os componentes base vêm primeiro. */
+@import "./componentes.css";
 @import "./landing.css";
 
 /*
