@@ -1,9 +1,10 @@
 // CLI-02 — Seu agendamento (só a tela; dados de exemplo do Figma)
 // Com ?estado=prazo (faltam menos de 2h), Remarcar e Cancelar abrem o aviso C2 em vez de seguir.
-// Trocar serviço abre o modal C5; o serviço escolhido muda só na tela.
+// Trocar serviço abre o modal C5 e Meus dados, o C6; o que for escolhido muda só na tela.
 import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { CancelarHorarioSheet } from "@/presentation/components/agendamento/CancelarHorarioSheet";
+import { MeusDadosSheet } from "@/presentation/components/agendamento/MeusDadosSheet";
 import { PrazoEncerradoSheet } from "@/presentation/components/agendamento/PrazoEncerradoSheet";
 import { TrocarServicoSheet } from "@/presentation/components/agendamento/TrocarServicoSheet";
 import { Button } from "@/presentation/components/ui/Button";
@@ -52,8 +53,10 @@ export default function SeuAgendamentoPage() {
   const [trocando, setTrocando] = useState(false);
   const [servicoId, setServicoId] = useState("corte-barba");
   const servico = SERVICOS.find((s) => s.id === servicoId);
+  const [editandoDados, setEditandoDados] = useState(false);
+  const [dados, setDados] = useState({ nome: "Lucas Andrade", whatsapp: "(19) 9 8765-4321" });
 
-  // Exemplo até existir back-end. TODO(CLI-02): modal de meus dados.
+  // Exemplo até existir back-end.
   const ALTERACOES = [
     {
       id: "remarcar",
@@ -74,7 +77,8 @@ export default function SeuAgendamentoPage() {
       id: "dados",
       icone: pessoaIcon,
       titulo: "Meus dados",
-      detalhe: "Lucas Andrade · (19) 9 8765-4321",
+      detalhe: `${dados.nome} · ${dados.whatsapp}`,
+      onClick: () => setEditandoDados(true),
     },
     { id: "agenda", icone: calendarioMaisIcon, titulo: "Pôr na agenda do celular" },
   ];
@@ -188,6 +192,16 @@ export default function SeuAgendamentoPage() {
         onTrocar={(novo) => {
           setServicoId(novo.id);
           setTrocando(false);
+        }}
+      />
+      <MeusDadosSheet
+        key={String(editandoDados)}
+        open={editandoDados}
+        onClose={() => setEditandoDados(false)}
+        dados={dados}
+        onSalvar={(novos) => {
+          setDados(novos);
+          setEditandoDados(false);
         }}
       />
       <CancelarHorarioSheet
