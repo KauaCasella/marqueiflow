@@ -1,0 +1,226 @@
+/*
+ * Landing page (rota "/"): estilos dos componentes em components/landing e da HomePage.
+ * Cada nome usa as classes do Tailwind com @apply; as cores e tamanhos vêm do global.css.
+ * "lg:" = a partir de 1024 px (computador).
+ */
+
+/* ---------- Página ---------- */
+.landing {
+  @apply flex flex-1 flex-col bg-paper;
+}
+.landing-conteudo {
+  @apply flex-1;
+}
+
+/* ---------- Topo ---------- */
+.landing-topo {
+  @apply mx-auto flex w-full max-w-[1160px] items-center justify-between pt-3 pr-3 pb-1 pl-5 lg:px-5 lg:py-6;
+}
+.landing-topo-logo {
+  @apply text-[22px] lg:text-[26px];
+}
+.landing-topo-acoes {
+  @apply flex items-center gap-2;
+}
+.landing-topo-criar {
+  @apply hidden lg:inline-flex;
+}
+
+/* ---------- Chamada principal ---------- */
+.landing-hero {
+  @apply mx-auto flex w-full max-w-[1160px] flex-col gap-4 px-5 pt-7 pb-9 leading-[normal] lg:flex-row lg:items-center lg:gap-16 lg:pt-16 lg:pb-24;
+}
+.landing-hero-texto {
+  @apply flex flex-col gap-4 lg:flex-1 lg:gap-5;
+}
+.landing-hero-selo {
+  @apply self-start rounded-full bg-accent-soft px-3 py-1.5 text-[13px] font-semibold text-accent-strong lg:text-sm;
+}
+.landing-hero-titulo {
+  @apply text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-ink lg:text-[60px] lg:leading-[1.02] lg:tracking-[-0.035em];
+}
+.landing-hero-subtitulo {
+  @apply text-base leading-[1.45] text-ink-2 lg:text-[19px];
+}
+.landing-hero-acao {
+  @apply flex flex-col gap-4 lg:flex-row lg:items-center;
+}
+.landing-hero-botao {
+  @apply w-full lg:w-auto;
+}
+.landing-hero-nota {
+  @apply text-center text-[13px] text-ink-2 lg:text-left lg:text-sm;
+}
+.landing-previa {
+  @apply flex flex-col gap-3 lg:w-[456px] lg:shrink-0;
+}
+.landing-previa-proximo {
+  @apply hidden flex-col gap-1 rounded-2xl bg-ink px-5 pt-4.5 pb-5 lg:flex;
+}
+.landing-previa-proximo-rotulo {
+  @apply text-[13px] font-medium text-ink-3;
+}
+.landing-previa-proximo-titulo {
+  @apply text-2xl font-semibold tracking-[-0.02em] text-surface;
+}
+.landing-previa-proximo-nome {
+  @apply ml-2.5;
+}
+.landing-previa-proximo-detalhe {
+  @apply text-sm text-ink-3;
+}
+.landing-previa-agenda {
+  @apply flex flex-col gap-3 rounded-2xl border border-line bg-surface p-4 lg:px-5 lg:py-4.5;
+}
+.landing-previa-agenda-rotulo {
+  @apply text-[13px] text-ink-2;
+}
+.landing-previa-horarios {
+  @apply grid grid-cols-4 gap-2;
+}
+.landing-previa-horario {
+  @apply w-full;
+}
+.landing-previa-aviso {
+  @apply flex items-center gap-2.5;
+}
+.landing-previa-aviso-texto {
+  @apply text-sm font-semibold text-ink;
+}
+
+/* ---------- Seção com título (base das seções) ---------- */
+.landing-secao {
+  @apply mx-auto flex w-full max-w-[1160px] flex-col gap-4 px-5 py-8 leading-[normal] lg:gap-8 lg:py-18;
+}
+.landing-secao-cabecalho {
+  @apply flex flex-col gap-4 lg:gap-2.5;
+}
+.landing-secao-titulo {
+  @apply text-[26px] leading-[1.15] font-semibold tracking-[-0.02em] text-ink lg:text-[38px] lg:leading-[1.1] lg:tracking-[-0.025em];
+}
+.landing-secao-subtitulo {
+  @apply text-[15px] leading-[1.45] text-ink-2 lg:text-[17px];
+}
+
+/* ---------- Como funciona ---------- */
+.landing-passos {
+  @apply flex flex-col gap-4 lg:flex-row;
+}
+.landing-passo {
+  @apply flex gap-3.5 rounded-2xl border border-line bg-surface p-4 lg:flex-1 lg:flex-col lg:p-6;
+}
+.landing-passo-numero {
+  @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-ink text-[15px] font-semibold text-surface lg:size-9 lg:text-base;
+}
+.landing-passo-texto {
+  @apply flex min-w-0 flex-col gap-1 lg:gap-3.5;
+}
+.landing-passo-titulo {
+  @apply text-base font-semibold tracking-[-0.01em] text-ink lg:text-[19px] lg:tracking-[-0.015em];
+}
+.landing-passo-descricao {
+  @apply text-sm leading-[1.45] text-ink-2 lg:text-[15px] lg:leading-normal;
+}
+
+/* ---------- Vantagens ---------- */
+.landing-vantagens {
+  @apply flex flex-col overflow-hidden rounded-2xl border border-line bg-surface lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible lg:rounded-none lg:border-0 lg:bg-transparent;
+}
+.landing-vantagem {
+  @apply relative flex items-start gap-3.5 p-3.5 lg:gap-4 lg:rounded-2xl lg:border lg:border-line lg:bg-surface lg:p-6;
+}
+.landing-vantagem-divisoria {
+  @apply absolute top-0 right-0 left-16 h-px bg-line lg:hidden;
+}
+.landing-vantagem-icone {
+  @apply flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-paper lg:size-10;
+}
+.landing-vantagem-icone-img {
+  @apply lg:size-5;
+}
+.landing-vantagem-texto {
+  @apply flex min-w-0 flex-col gap-0.5 lg:gap-1;
+}
+.landing-vantagem-titulo {
+  @apply text-[15px] font-semibold tracking-[-0.01em] text-ink lg:text-lg;
+}
+.landing-vantagem-descricao {
+  @apply text-[13px] leading-[1.4] text-ink-2 lg:text-[15px] lg:leading-normal;
+}
+
+/* ---------- Para quem ---------- */
+.landing-para-quem {
+  @apply lg:gap-6;
+}
+.landing-profissoes {
+  @apply flex flex-wrap gap-2 lg:gap-2.5;
+}
+.landing-profissao {
+  @apply rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm font-semibold text-ink lg:px-4.5 lg:py-3 lg:text-[15px];
+}
+
+/* ---------- Preço ---------- */
+.landing-preco {
+  @apply mx-auto w-full max-w-[1160px] px-5 pt-4 pb-8 leading-[normal] lg:pt-6 lg:pb-18;
+}
+.landing-preco-cartao {
+  @apply flex flex-col gap-3 rounded-2xl bg-ink px-5 pt-6 pb-5 lg:flex-row lg:items-center lg:gap-10 lg:rounded-3xl lg:px-12 lg:py-11;
+}
+.landing-preco-texto {
+  @apply flex flex-col gap-3 lg:flex-1;
+}
+.landing-preco-titulo {
+  @apply text-[40px] leading-none font-semibold tracking-[-0.03em] text-surface lg:text-[64px] lg:tracking-[-0.035em];
+}
+.landing-preco-descricao {
+  @apply text-[15px] leading-[1.45] text-ink-3 lg:text-lg;
+}
+.landing-preco-botao {
+  @apply w-full lg:h-14 lg:w-auto lg:shrink-0 lg:px-7 lg:text-[17px];
+}
+
+/* ---------- Perguntas frequentes ---------- */
+.landing-perguntas {
+  @apply mx-auto flex w-full max-w-[1160px] flex-col gap-4 px-5 py-8 leading-[normal] lg:flex-row lg:gap-16 lg:pt-6 lg:pb-24;
+}
+.landing-perguntas-cabecalho {
+  @apply flex flex-col gap-2.5 lg:w-90 lg:shrink-0;
+}
+.landing-perguntas-contato {
+  @apply hidden text-[15px] leading-normal text-ink-2 lg:block;
+}
+.landing-perguntas-email {
+  @apply underline-offset-2 hover:underline;
+}
+.landing-perguntas-lista {
+  @apply lg:flex-1;
+}
+.landing-pergunta {
+  @apply flex flex-col gap-1 px-4 py-3.5 lg:gap-1.5 lg:px-6 lg:py-5;
+}
+.landing-pergunta-titulo {
+  @apply text-[15px] font-semibold tracking-[-0.01em] text-ink lg:text-[17px];
+}
+.landing-pergunta-resposta {
+  @apply text-sm leading-[1.45] text-ink-2 lg:text-[15px] lg:leading-normal;
+}
+
+/* ---------- Rodapé ---------- */
+.landing-rodape {
+  @apply leading-[normal] lg:border-t lg:border-line;
+}
+.landing-rodape-conteudo {
+  @apply mx-auto flex w-full max-w-[1160px] flex-col items-center gap-2.5 px-5 pt-6 pb-10 lg:flex-row lg:justify-between lg:pt-8;
+}
+.landing-rodape-marca {
+  @apply flex flex-col items-center gap-2.5 lg:flex-row lg:gap-4;
+}
+.landing-rodape-logo {
+  @apply text-lg lg:text-xl;
+}
+.landing-rodape-texto {
+  @apply text-[13px] text-ink-2 lg:text-sm;
+}
+.landing-rodape-links {
+  @apply lg:gap-2.5 lg:text-[13px];
+}
