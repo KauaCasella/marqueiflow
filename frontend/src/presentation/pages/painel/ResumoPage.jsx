@@ -1,6 +1,6 @@
 // RES-01 — Resumo do mês (só a tela; dados de exemplo do Figma)
 // As setas trocam entre 3 meses de exemplo; novembro (o atual) é o último, então a seta da direita
-// fica apagada nele.
+// fica apagada nele. No gráfico, tocar numa barra mostra o número daquele dia.
 import { Fragment, useState } from "react";
 import { cn } from "@/presentation/utils/cn";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
@@ -64,7 +64,9 @@ export default function ResumoPage() {
     id: DIAS_SEMANA[i],
     label: DIAS_SEMANA[i],
     altura,
-    ...(i === 5 && { destaque: true, valor: mes.destaque.valor }),
+    // Exemplo: o número de cada dia acompanha a altura da barra (a do sábado é a mais alta).
+    valor: Math.round((altura / Math.max(...mes.dias)) * mes.destaque.valor),
+    destaque: i === 5,
   }));
 
   return (
@@ -135,7 +137,7 @@ export default function ResumoPage() {
           </h2>
           <p className="text-sm font-medium text-ink-2">{mes.destaque.lider}</p>
         </div>
-        <DiasMaisCheios dias={dias} />
+        <DiasMaisCheios key={mes.nome} dias={dias} />
       </section>
 
       <section className="flex flex-col gap-3">
