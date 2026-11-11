@@ -5,9 +5,9 @@ import { Logo } from "@/presentation/components/ui/Logo";
 
 /**
  * titulo/texto: cabeçalho. children: os campos. acao: rótulo do botão principal.
- * onEnviar: botão principal; onGoogle: "Continuar com Google".
+ * onEnviar: botão principal; onGoogle: "Continuar com Google" (sem ele, some o botão e o "ou").
  * rodape: { pergunta, acao, to } — ex.: "Não tem conta?" + "Criar conta".
- * termos: frase antes dos links legais.
+ * termos: frase antes dos links legais (sem ela, somem os links).
  */
 export function AuthLayout({ titulo, texto, children, acao, onEnviar, onGoogle, rodape, termos }) {
   const enviar = (e) => {
@@ -41,14 +41,18 @@ export function AuthLayout({ titulo, texto, children, acao, onEnviar, onGoogle, 
         <Button type="submit" className="w-full">
           {acao}
         </Button>
-        <div className="flex items-center gap-3" aria-hidden="true">
-          <span className="h-px flex-1 bg-line" />
-          <span className="text-[13px] text-ink-2">ou</span>
-          <span className="h-px flex-1 bg-line" />
-        </div>
-        <Button variant="secundario" className="w-full" onClick={onGoogle}>
-          Continuar com Google
-        </Button>
+        {onGoogle && (
+          <>
+            <div className="flex items-center gap-3" aria-hidden="true">
+              <span className="h-px flex-1 bg-line" />
+              <span className="text-[13px] text-ink-2">ou</span>
+              <span className="h-px flex-1 bg-line" />
+            </div>
+            <Button variant="secundario" className="w-full" onClick={onGoogle}>
+              Continuar com Google
+            </Button>
+          </>
+        )}
       </div>
 
       <footer className="flex flex-col items-center gap-3 px-5 pt-3 pb-8.5">
@@ -58,17 +62,19 @@ export function AuthLayout({ titulo, texto, children, acao, onEnviar, onGoogle, 
             {rodape.acao}
           </Link>
         </p>
-        <p className="text-center text-xs leading-[1.45] text-ink-2">
-          {termos}{" "}
-          <Link to="/termos" className="font-medium text-ink underline">
-            Termos de uso
-          </Link>{" "}
-          e a{" "}
-          <Link to="/privacidade" className="font-medium text-ink underline">
-            Política de privacidade
-          </Link>
-          .
-        </p>
+        {termos && (
+          <p className="text-center text-xs leading-[1.45] text-ink-2">
+            {termos}{" "}
+            <Link to="/termos" className="font-medium text-ink underline">
+              Termos de uso
+            </Link>{" "}
+            e a{" "}
+            <Link to="/privacidade" className="font-medium text-ink underline">
+              Política de privacidade
+            </Link>
+            .
+          </p>
+        )}
       </footer>
     </form>
   );

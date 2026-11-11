@@ -1,6 +1,6 @@
 // AUTH-03 — Entrar com e-mail e senha ou Google (só a tela; Figma 01 · Entrar — e-mail e senha)
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthLayout } from "@/presentation/components/auth/AuthLayout";
 import { TextField } from "@/presentation/components/ui/TextField";
 
@@ -41,13 +41,12 @@ export default function EntrarPage() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
         />
-        {/* TODO(AUTH-03): tela de esqueci minha senha. */}
-        <button
-          type="button"
+        <Link
+          to="/esqueci-senha"
           className="flex h-11 pressable items-center self-end text-sm font-semibold text-accent-strong"
         >
           Esqueci minha senha
-        </button>
+        </Link>
       </div>
     </AuthLayout>
   );
