@@ -1,0 +1,49 @@
+// Clientes de exemplo (Figma · 11 Clientes) até existir back-end.
+// Usados na lista (CLT-01) e nos detalhes do cliente (CLT-02).
+export const CLIENTES = [
+  {
+    id: 1,
+    iniciais: "LA",
+    nome: "Lucas Andrade",
+    ultimaVisita: "Hoje, 16:30 · 8 visitas",
+    visitas: 8,
+    total: "R$ 420",
+  },
+  {
+    id: 2,
+    iniciais: "MC",
+    nome: "Mateus Costa",
+    ultimaVisita: "Há 12 dias · 5 visitas",
+    visitas: 5,
+    total: "R$ 250",
+  },
+  {
+    id: 3,
+    iniciais: "PA",
+    nome: "Pedro Alves",
+    ultimaVisita: "Há 18 dias · 11 visitas",
+    visitas: 11,
+    total: "R$ 610",
+  },
+  {
+    id: 4,
+    iniciais: "RS",
+    nome: "Rafael Santos",
+    ultimaVisita: "Há 34 dias · 3 visitas",
+    visitas: 3,
+    total: "R$ 140",
+    sumido: true,
+  },
+  {
+    id: 5,
+    iniciais: "GN",
+    nome: "Gabriel Nunes",
+    ultimaVisita: "Há 41 dias · 6 visitas",
+    visitas: 6,
+    total: "R$ 300",
+    sumido: true,
+  },
+];
+
+/** Cliente de exemplo pelo id da rota; undefined se não existir. */
+export const acharCliente = (id) => CLIENTES.find((c) => c.id === Number(id));

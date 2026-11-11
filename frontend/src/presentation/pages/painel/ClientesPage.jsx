@@ -1,6 +1,8 @@
 // CLT-01 — Clientes (só a tela; dados de exemplo do Figma)
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
+import { CLIENTES } from "@/presentation/components/clientes/clientesExemplo";
 import { ListaClientes } from "@/presentation/components/clientes/ListaClientes";
 import { SegmentedControl } from "@/presentation/components/ui/SegmentedControl";
 import buscaIcon from "@/presentation/assets/icons/busca-18.svg";
@@ -12,47 +14,8 @@ const FILTROS = [
   { value: "novos", label: "Novos", count: 9 },
 ];
 
-const CLIENTES = [
-  {
-    id: 1,
-    iniciais: "LA",
-    nome: "Lucas Andrade",
-    ultimaVisita: "Hoje, 16:30 · 8 visitas",
-    total: "R$ 420",
-  },
-  {
-    id: 2,
-    iniciais: "MC",
-    nome: "Mateus Costa",
-    ultimaVisita: "Há 12 dias · 5 visitas",
-    total: "R$ 250",
-  },
-  {
-    id: 3,
-    iniciais: "PA",
-    nome: "Pedro Alves",
-    ultimaVisita: "Há 18 dias · 11 visitas",
-    total: "R$ 610",
-  },
-  {
-    id: 4,
-    iniciais: "RS",
-    nome: "Rafael Santos",
-    ultimaVisita: "Há 34 dias · 3 visitas",
-    total: "R$ 140",
-    sumido: true,
-  },
-  {
-    id: 5,
-    iniciais: "GN",
-    nome: "Gabriel Nunes",
-    ultimaVisita: "Há 41 dias · 6 visitas",
-    total: "R$ 300",
-    sumido: true,
-  },
-];
-
 export default function ClientesPage() {
+  const navigate = useNavigate();
   const [filtro, setFiltro] = useState("todos");
   const [busca, setBusca] = useState("");
 
@@ -102,8 +65,7 @@ export default function ClientesPage() {
         </button>
       </section>
 
-      {/* TODO(CLT-01): tocar no cliente abre os detalhes dele. */}
-      <ListaClientes clientes={CLIENTES} />
+      <ListaClientes clientes={CLIENTES} onAbrir={(c) => navigate(`/painel/clientes/${c.id}`)} />
     </PainelLayout>
   );
 }

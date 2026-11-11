@@ -2,6 +2,7 @@
 import {
   AgendaHojePage,
   AjustesPage,
+  ClientePage,
   ClientesPage,
   DiaPage,
   FolgasPage,
@@ -19,6 +20,7 @@ export const painelRoutes = [
   { path: "/painel/semana", element: <SemanaPage /> }, // AG-03
   { path: "/painel/semana/:dia", element: <DiaPage /> }, // AG-04
   { path: "/painel/clientes", element: <ClientesPage /> }, // CLT-01
+  { path: "/painel/clientes/:id", element: <ClientePage /> }, // CLT-02
   { path: "/painel/resumo", element: <ResumoPage /> }, // RES-01
   { path: "/painel/ajustes", element: <AjustesPage /> }, // AJ-01
   { path: "/painel/ajustes/servicos", element: <ServicosPage /> }, // AJ-02
