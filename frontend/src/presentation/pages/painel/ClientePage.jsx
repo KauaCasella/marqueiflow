@@ -1,5 +1,5 @@
 // CLT-02 — Detalhes do cliente (só a tela; Figma 11b · Detalhes do cliente)
-// Nome, iniciais, visitas e total vêm do cliente tocado na lista; o resto é o exemplo do Figma.
+// Nome, iniciais, WhatsApp, visitas e total vêm do cliente tocado na lista; o resto é o exemplo do Figma.
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
@@ -13,7 +13,6 @@ import { cn } from "@/presentation/utils/cn";
 import voltarIcon from "@/presentation/assets/icons/voltar-18.svg";
 
 // Exemplo até existir back-end.
-const CONTATO = "(19) 9 8765-4321 · desde março";
 const PROXIMO = {
   quando: "Hoje, 16:30",
   detalhe: "Corte + barba · sinal pago",
@@ -67,7 +66,7 @@ export default function ClientePage() {
           <h1 className="text-2xl leading-[1.15] font-semibold tracking-[-0.6px] text-ink">
             {cliente.nome}
           </h1>
-          <p className="text-sm text-ink-2">{CONTATO}</p>
+          <p className="text-sm text-ink-2">{cliente.whatsapp} · desde março</p>
         </div>
       </section>
 

@@ -1,4 +1,5 @@
 // CLT-01 — Clientes (só a tela; dados de exemplo do Figma)
+// A busca filtra a lista pelo nome (sem ligar para acentos ou maiúsculas) ou pelo WhatsApp.
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
@@ -15,11 +16,26 @@ const FILTROS = [
   { value: "novos", label: "Novos", count: 9 },
 ];
 
+// Sem acentos e em minúsculas, para "joao" achar "João".
+const simples = (texto) => texto.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+const numeros = (texto) => texto.replace(/\D/g, "");
+
+// Acha pelo nome ou pelos números do WhatsApp.
+const buscar = (clientes, busca) => {
+  const termo = simples(busca);
+  if (!termo) return clientes;
+  const digitos = numeros(busca);
+  return clientes.filter(
+    (c) => simples(c.nome).includes(termo) || (digitos && numeros(c.whatsapp).includes(digitos)),
+  );
+};
+
 export default function ClientesPage() {
   const navigate = useNavigate();
   const [filtro, setFiltro] = useState("todos");
   const [busca, setBusca] = useState("");
   const [chamando, setChamando] = useState(false);
+  const encontrados = buscar(CLIENTES, busca);
 
   return (
     <PainelLayout aba="clientes" className="gap-4 pt-5">
@@ -67,7 +83,19 @@ export default function ClientesPage() {
         </button>
       </section>
 
-      <ListaClientes clientes={CLIENTES} onAbrir={(c) => navigate(`/painel/clientes/${c.id}`)} />
+      {encontrados.length > 0 ? (
+        <ListaClientes
+          clientes={encontrados}
+          onAbrir={(c) => navigate(`/painel/clientes/${c.id}`)}
+        />
+      ) : (
+        <p className="rounded-2xl border border-line bg-surface px-4 py-6 text-center text-sm leading-[1.45] text-ink-2">
+          Nenhum cliente encontrado para “{busca.trim()}”.
+        </p>
+      )}
+      <p className="sr-only" aria-live="polite">
+        {busca.trim() && `${encontrados.length} de ${CLIENTES.length} clientes`}
+      </p>
       <ChamarSumidosSheet
         key={String(chamando)}
         open={chamando}
