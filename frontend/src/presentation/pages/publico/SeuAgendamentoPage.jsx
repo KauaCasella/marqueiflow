@@ -1,9 +1,11 @@
 // CLI-02 — Seu agendamento (só a tela; dados de exemplo do Figma)
 // Com ?estado=prazo (faltam menos de 2h), Remarcar e Cancelar abrem o aviso C2 em vez de seguir.
+// Trocar serviço abre o modal C5; o serviço escolhido muda só na tela.
 import { useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { CancelarHorarioSheet } from "@/presentation/components/agendamento/CancelarHorarioSheet";
 import { PrazoEncerradoSheet } from "@/presentation/components/agendamento/PrazoEncerradoSheet";
+import { TrocarServicoSheet } from "@/presentation/components/agendamento/TrocarServicoSheet";
 import { Button } from "@/presentation/components/ui/Button";
 import { IconButton } from "@/presentation/components/ui/IconButton";
 import { ListGroup } from "@/presentation/components/ui/ListGroup";
@@ -17,6 +19,26 @@ import pessoaIcon from "@/presentation/assets/icons/pessoa-18.svg";
 import calendarioMaisIcon from "@/presentation/assets/icons/calendario-mais-18.svg";
 import setaIcon from "@/presentation/assets/icons/seta-direita-16-clara.svg";
 
+// Exemplo até existir back-end.
+const SERVICOS = [
+  { id: "corte", nome: "Corte", detalhe: "30 min", preco: "R$ 40", fim: "17:30", sinal: "R$ 12" },
+  {
+    id: "corte-barba",
+    nome: "Corte + barba",
+    detalhe: "50 min",
+    preco: "R$ 60",
+    fim: "17:50",
+    sinal: "R$ 18",
+  },
+  {
+    id: "barba-sobrancelha",
+    nome: "Barba + sobrancelha",
+    detalhe: "70 min · não cabe às 17:00",
+    preco: "R$ 45",
+    naoCabe: true,
+  },
+];
+
 const linha =
   "flex pressable items-center gap-3 px-3.5 py-[13px] text-left active:scale-100 active:bg-paper";
 
@@ -27,8 +49,11 @@ export default function SeuAgendamentoPage() {
   const prazoEncerrado = params.get("estado") === "prazo";
   const [cancelando, setCancelando] = useState(false);
   const [avisoPrazo, setAvisoPrazo] = useState(false);
+  const [trocando, setTrocando] = useState(false);
+  const [servicoId, setServicoId] = useState("corte-barba");
+  const servico = SERVICOS.find((s) => s.id === servicoId);
 
-  // Exemplo até existir back-end. TODO(CLI-02): telas de trocar serviço e meus dados.
+  // Exemplo até existir back-end. TODO(CLI-02): modal de meus dados.
   const ALTERACOES = [
     {
       id: "remarcar",
@@ -38,7 +63,13 @@ export default function SeuAgendamentoPage() {
       to: prazoEncerrado ? undefined : `/a/${token}/remarcar`,
       onClick: prazoEncerrado ? () => setAvisoPrazo(true) : undefined,
     },
-    { id: "servico", icone: trocarIcon, titulo: "Trocar serviço", detalhe: "Corte + barba" },
+    {
+      id: "servico",
+      icone: trocarIcon,
+      titulo: "Trocar serviço",
+      detalhe: servico.nome,
+      onClick: () => (prazoEncerrado ? setAvisoPrazo(true) : setTrocando(true)),
+    },
     {
       id: "dados",
       icone: pessoaIcon,
@@ -67,9 +98,11 @@ export default function SeuAgendamentoPage() {
           <StatusBadge status="confirmado" />
           <p className="text-[15px] font-medium text-ink-2">Segunda, 9 de novembro</p>
           <p className="text-4xl leading-[1.05] font-semibold tracking-[-1.08px] text-ink tabular-nums">
-            17:00 – 17:50
+            17:00 – {servico.fim}
           </p>
-          <p className="text-sm text-ink-2">Corte + barba · R$ 60 · sinal de R$ 18 pago</p>
+          <p className="text-sm text-ink-2">
+            {servico.nome} · {servico.preco} · sinal de {servico.sinal} pago
+          </p>
         </section>
 
         <section className="flex items-center gap-3 rounded-2xl border border-line bg-surface py-3 pr-3 pl-3.5">
@@ -146,6 +179,17 @@ export default function SeuAgendamentoPage() {
       </footer>
 
       <PrazoEncerradoSheet open={avisoPrazo} onClose={() => setAvisoPrazo(false)} />
+      <TrocarServicoSheet
+        key={`${servicoId}-${trocando}`}
+        open={trocando}
+        onClose={() => setTrocando(false)}
+        servicos={SERVICOS}
+        atual={servicoId}
+        onTrocar={(novo) => {
+          setServicoId(novo.id);
+          setTrocando(false);
+        }}
+      />
       <CancelarHorarioSheet
         open={cancelando}
         onClose={() => setCancelando(false)}
