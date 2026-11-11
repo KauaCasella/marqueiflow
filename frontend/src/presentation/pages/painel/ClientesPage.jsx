@@ -1,6 +1,6 @@
 // CLT-01 — Clientes (só a tela; dados de exemplo do Figma)
 // A busca filtra a lista pelo nome (sem ligar para acentos ou maiúsculas) ou pelo WhatsApp.
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
 import { CLIENTES } from "@/presentation/components/clientes/clientesExemplo";
@@ -8,6 +8,7 @@ import { ChamarSumidosSheet } from "@/presentation/components/clientes/ChamarSum
 import { ListaClientes } from "@/presentation/components/clientes/ListaClientes";
 import { SegmentedControl } from "@/presentation/components/ui/SegmentedControl";
 import buscaIcon from "@/presentation/assets/icons/busca-18.svg";
+import limparIcon from "@/presentation/assets/icons/fechar-16-cinza.svg";
 
 // Exemplo até existir back-end.
 const FILTROS = [
@@ -34,6 +35,7 @@ export default function ClientesPage() {
   const navigate = useNavigate();
   const [filtro, setFiltro] = useState("todos");
   const [busca, setBusca] = useState("");
+  const campoBusca = useRef(null);
   const [chamando, setChamando] = useState(false);
   const encontrados = buscar(CLIENTES, busca);
 
@@ -48,14 +50,29 @@ export default function ClientesPage() {
 
       <label className="flex h-12 items-center gap-2.5 rounded-[14px] border border-line bg-surface px-3.5 focus-within:border-ink">
         <img src={buscaIcon} alt="" width={18} height={18} />
+        {/* O X azul do navegador fica escondido; o de limpar é o botão cinza logo depois. */}
         <input
+          ref={campoBusca}
           type="search"
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           placeholder="Buscar por nome ou WhatsApp"
           aria-label="Buscar cliente"
-          className="h-full min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-2"
+          className="h-full min-w-0 flex-1 bg-transparent text-[15px] text-ink outline-none placeholder:text-ink-2 [&::-webkit-search-cancel-button]:hidden"
         />
+        {busca && (
+          <button
+            type="button"
+            aria-label="Limpar busca"
+            onClick={() => {
+              setBusca("");
+              campoBusca.current?.focus();
+            }}
+            className="relative -mr-1.5 flex size-7 shrink-0 pressable items-center justify-center rounded-full before:absolute before:-inset-2"
+          >
+            <img src={limparIcon} alt="" width={16} height={16} />
+          </button>
+        )}
       </label>
 
       <SegmentedControl
