@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { PainelLayout } from "@/presentation/components/painel/PainelLayout";
 import { CLIENTES } from "@/presentation/components/clientes/clientesExemplo";
+import { ChamarSumidosSheet } from "@/presentation/components/clientes/ChamarSumidosSheet";
 import { ListaClientes } from "@/presentation/components/clientes/ListaClientes";
 import { SegmentedControl } from "@/presentation/components/ui/SegmentedControl";
 import buscaIcon from "@/presentation/assets/icons/busca-18.svg";
@@ -18,6 +19,7 @@ export default function ClientesPage() {
   const navigate = useNavigate();
   const [filtro, setFiltro] = useState("todos");
   const [busca, setBusca] = useState("");
+  const [chamando, setChamando] = useState(false);
 
   return (
     <PainelLayout aba="clientes" className="gap-4 pt-5">
@@ -56,9 +58,9 @@ export default function ClientesPage() {
             Uma mensagem costuma trazer metade de volta.
           </p>
         </div>
-        {/* TODO(CLT-01): mandar mensagem para os clientes sumidos. */}
         <button
           type="button"
+          onClick={() => setChamando(true)}
           className="relative flex h-10 shrink-0 pressable items-center rounded-xl bg-ink px-3.5 text-sm font-semibold tracking-[-0.14px] text-surface before:absolute before:inset-x-0 before:-inset-y-0.5"
         >
           Chamar
@@ -66,6 +68,11 @@ export default function ClientesPage() {
       </section>
 
       <ListaClientes clientes={CLIENTES} onAbrir={(c) => navigate(`/painel/clientes/${c.id}`)} />
+      <ChamarSumidosSheet
+        key={String(chamando)}
+        open={chamando}
+        onClose={() => setChamando(false)}
+      />
     </PainelLayout>
   );
 }
